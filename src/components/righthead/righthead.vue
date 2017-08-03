@@ -1,7 +1,7 @@
  <template>
 	<div class="righthead">
-		<div class="rightTitle">
-			电影后台管理系统
+		<div class="lefttag">
+			医院后台管理系统
 		</div>
 		<div class="rightUser">
 			<el-dropdown split-button type="primary">
@@ -10,7 +10,7 @@
                     <img class="user-avatar" :src="imgURL" @click="handleClick">
                 </div>
 			  <el-dropdown-menu slot="dropdown">
-			    <el-dropdown-item>首页</el-dropdown-item>
+			    <el-dropdown-item><el-button type="text" @click="open">首页</el-button></el-dropdown-item>
 			    <el-dropdown-item>切换主题</el-dropdown-item>
 			    <el-dropdown-item>修改密码</el-dropdown-item>
 			    <el-dropdown-item>退出登录</el-dropdown-item>
@@ -27,6 +27,19 @@
 		    return {
 		    	imgURL:'@/assets/img.jpg'
 		    }
+		},
+		methods: {
+		    open() {
+		       this.$alert('这是一段内容', '标题名称', {
+		         confirmButtonText: '确定',
+		         callback: action => {
+		           this.$message({
+		             type: 'info',
+		             message: `action: ${ action }`
+		           });
+		         }
+		       });
+		    }
 		}
 	}
 </script>
@@ -40,26 +53,26 @@
 	.rightUser{
 		float:right;
 	}
-	.rightTitle{
+	.lefttag{
 		float: left;
 		font-size: 32px;
 		text-align: center;
 	}
-	.el-button{
+	.righthead .el-button{
 		background: none;
 	    color: #000;
 	    border: none;
 	}
-	.el-dropdown__caret-button{
+	.righthead .el-dropdown__caret-button{
 		position: relative;
 		top: -4px;
 	}
 
-	.el-button:focus,.el-button:hover{
+	.righthead .el-button:focus,.el-button:hover{
 		background:#eef1f6;
 		color: #000;
 	}
-	.avatar-wrapper .user-name{
+	.righthead .avatar-wrapper .user-name{
 	    position: relative;
 	    top: -6px;
 	}

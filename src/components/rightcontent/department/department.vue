@@ -1,0 +1,204 @@
+<template>
+    <div class="department">
+      <div exampleform-row>
+        <el-select v-model="select" slot="prepend" placeholder="科室类别" style="width: 130px">
+          <el-option v-for="item in typeOptions" :key="item.key" :label="item.display_name" :value="item.key">
+          </el-option>
+        </el-select>
+        
+        <el-button type="primary" icon="search" :value="value">搜索</el-button>
+        <el-button type="primary" icon="edit" @click="dialogVisible = true">添加</el-button>
+        <el-dialog title="提示" :visible.sync="dialogVisible" size="tiny" :before-close="handleClose">
+          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+            <el-form-item label="类型名称" prop="name">
+              <el-input v-model="ruleForm.name"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+              <el-button @click="resetForm('ruleForm')">重置</el-button>
+            </el-form-item> 
+          </el-form> 
+        </el-dialog>        
+        <el-button type="primary" icon="delete" @click="handleDelete">批量删除</el-button>
+        <el-button type="primary" icon="document" @click="handleDownload">导出</el-button>
+      </div>
+
+    <!-- 表格 -->
+      <el-table ref="multipleTable" :data="tableData" border tooltip-effect="dark" style="width: 100%;margin-top:20px;margin-bottom:20px" @selection-change="handleSelectionChange">
+
+      <el-table-column type="selection" width="55">
+      </el-table-column>
+      
+      <el-table-column  label="序号" show-overflow-tooltip>
+        <template scope="scope">
+                {{scope.$index}}
+          </template>
+      </el-table-column>
+
+      <el-table-column  label="类别" show-overflow-tooltip>
+        <template scope="scope">
+                {{scope.row.field1}}
+          </template>
+      </el-table-column>
+
+
+      <el-table-column label="操作">
+        <template scope="scope">
+          <el-button size="small" >编辑</el-button>
+          <el-button size="small" type="danger" @click="deleteRow(scope.$index,tableData)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+
+
+    <!-- 分页 -->
+    <el-form  > 
+         <el-col :span="3"><el-form-item style="width: 100px;height:28px;">
+             <el-select  placeholder="10条/页" >
+             <el-option label="10条/页" value="shi" class="selected"></el-option>
+             <el-option label="20条/页" value="ershi"></el-option>
+             <el-option label="30条/页" value="sanshi"></el-option>
+             <el-option label="50条/页" value="wushi"></el-option>
+             </el-select>
+         </el-form-item></el-col>
+       <el-col :span="3"><div class="block">
+       <el-pagination layout="prev, next ,jumper" :total="50"></el-pagination>
+       </div></el-col> 
+  </el-form>
+  </div>
+    </div>
+</template>
+
+<script type="ecmascript-6">
+    export default{
+       data() {
+        return {
+          dialogVisible: false,
+          select:'',
+          typeOptions:[
+            { key: '001', display_name: '内科' },
+            { key: '002', display_name: '儿科' },
+            { key: '003', display_name: '骨科' },
+            { key: '004', display_name: '产科' }
+          ],
+          tableData: [{
+            num: '0',
+            field1: '呼吸内科'
+ 
+          }, {
+             num: '1',
+            field1: '消化内科'
+         
+          }, {
+            num: '2',
+            field1: '心血管内科'
+          
+          }, {
+            num: '3',
+            field1: '神经内科'
+           
+          }, {
+             num: '4',
+            field1: '肿瘤科'
+          
+          }, {
+             num: '5',
+            field1: '内分泌科'
+            
+          }, {
+            num: '6',
+            field1: '血液内科'
+            
+          },
+          {
+            num: '7',
+            field1: '儿科'
+            
+          },
+          {
+            num: '8',
+            field1: '小儿科'
+            
+          }
+          ],
+          multipleSelection: [],
+          ruleForm: {
+                    name: ''
+          },
+          rules: {
+            name: [
+              { required: true, message: '请输入类型名称', trigger: 'blur' },
+              { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+            ]
+          }
+        };
+      },
+      methods: {
+        deleteRow(index, rows){
+          rows.splice(index, 1)
+        },
+        handleClose(done) {
+	        this.$confirm('确认关闭？').then(_ => {
+	            done();
+	        }).catch(_ => {});
+	     },
+	     submitForm(formName) {
+         this.$refs[formName].validate((valid) => {
+           if (valid) {
+           	this.tableData.field1=this.ruleForm.name;
+           	// 把数据添加进去表格
+           	this.tableData.unshift({field1:this.tableData.field1});
+             alert('submit!');
+           } else {
+             console.log('error submit!!');
+             return false;
+           }
+         });
+       },
+	     resetForm(formName) {
+	       this.$refs[formName].resetFields();
+	     },
+      handleDownload() {
+        alert(2);
+      //   var vm = this;
+      //   require.ensure([], () => {
+      //     const { export_json_to_excel } = require('@/vendor/Export2Excel');
+      //     const tHeader = ['字段1', '字段2', '字段3', '字段4', '字段5'];
+      //     const filterVal = ['chnlId', 'hisChnlId', 'chnlName', 'state', 'isavailable'];
+      //     const list = vm.list;
+      //     const data = vm.formatJson(filterVal, list);
+      //     export_json_to_excel(tHeader, data, '导出的列表excel');
+      //   })
+      // },
+      // formatJson(filterVal, jsonData) {
+      //   return jsonData.map(v => filterVal.map(j => v[j]))
+      },
+      handleSelectionChange(val) {
+           this.multipleSelection = val;
+      },
+      handleDelete(){
+        var vm = this;
+        alert(this.multipleSelection);
+        alert('批量删除选择的row',vm.multipleSelection);
+        // rows=vm.multipleSelection
+        // deleteRow(index, rows){
+        //   rows.splice(index, rows)
+        // }
+      }
+    }
+  }
+</script>
+
+<style rel="stylesheet">
+	.department{
+	  float:right;
+	  width:86%;
+	}
+   .el-input__inner{
+    border-radius: 0!important;
+    height:28px!important;
+   }
+   .el-pagination{
+    padding-top: 4px;
+   }
+</style>

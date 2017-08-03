@@ -1,11 +1,188 @@
 <template>
- 	<div class="permission">
-    	wd
- 	</div>
+<div class="hotmovie">
+          <el-button type="text" @click="dialogVisible = true">新增角色</el-button>
+          <el-dialog title="新增角色" :visible.sync="dialogVisible" size="tiny" :before-close="handleClose">
+          <el-form>
+            <el-form-item label="角色名称：">
+                <el-input v-model="juse"></el-input>
+           </el-form-item>
+           <el-form-item label="对应用户：">
+                <el-input v-model="yonghu"></el-input>
+           </el-form-item>
+          </el-form>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="dialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="dialogVisible = false,add()">确 定</el-button>
+            </span>
+          </el-dialog> 
+      <el-table :default-sort="{prop:'botime',order: 'descending'}"  :data="tableData3">
+        <el-table-column prop="juese" label="角色" ></el-table-column>
+        <el-table-column prop="yonghu" label="对应用户"></el-table-column>
+        <el-table-column label="操作" prop="caozuo"  >
+            <template scope="scope">
+           <!--  //设置权限 -->
+                <el-button size="small" v-if="scope.$index!=0" @click="permission=true,cout1(scope.$index)">设置权限</el-button> 
+                <el-dialog :title="cout() " :visible.sync="permission" size="tiny" :before-close="handleClose">
+                    <el-checkbox-group v-model="checkedoption">
+                        <el-checkbox v-for="Option in Options" :label="Option" :key="Option" style="margin:15px;">{{Option}}</el-checkbox>
+                    </el-checkbox-group>
+                  <span slot="footer" class="dialog-footer">
+                    <el-button @click="permission = false">取 消</el-button>
+                    <el-button type="primary" @click="permission = false">确 定</el-button>
+                  </span>
+                </el-dialog> 
+               <!--  //设置成员 -->
+                <el-button size="small" v-if="scope.$index!=0" @click="menber=true">设置成员</el-button>
+               <!-- //编辑 -->
+                <el-button size="small" v-if="scope.$index!=0" @click="edit=true">编辑</el-button>  
+                <!-- //删除 -->
+                <el-button size="small" v-if="scope.$index!=0" @click=" delet=true,cout1(scope.$index)">删除</el-button>
+                <el-dialog :title="cout(scope.$index) " :visible.sync="delet" size="tiny" :before-close="handleClose">
+                  <span slot="footer" class="dialog-footer">
+                    <el-button @click="delet = false">取 消</el-button>
+                    <el-button type="primary" @click="delet = false,deleteRow()">确 定</el-button>
+                  </span>
+                </el-dialog> 
+               <!--  //拥有所有权限 -->
+                <el-button size="small" v-if="scope.$index==0" @click="own=true">拥有所有权限</el-button>
+            </template>
+        </el-table-column>  
+      </el-table>
+      <el-row>
+      <el-form style="margin-top:50px"> 
+      <el-col :span="3"><div>
+         <el-form-item >
+             <el-select  placeholder="10条/页">
+             <el-option label="10条/页" value="shi" class="selected"></el-option>
+             <el-option label="20条/页" value="ershi"></el-option>
+             <el-option label="30条/页" value="sanshi"></el-option>
+             <el-option label="50条/页" value="wushi"></el-option>
+             </el-select>
+         </el-form-item>
+         </div></el-col>
+       <el-col :span="3"><div>
+         
+       <div class="block" style="margin-top:2px;">
+              <el-pagination layout="prev, pager,next ,jumper" :total="100"></el-pagination>
+       </div> 
+       </div></el-col>
+     </el-form>
+    </el-row>   
+</div>
+    </div>
+
 </template>
-<script type="esmascript">
 
+<script type="ecmascript-6">
+    const perOptions = ['排班', '预约', '问诊', '收费',
+                         '处方', '患者', '诊所', '统计',
+                         '药品', '药品管理', '库存管理',
+                         '药品调价', '项目', '模板', '系统'
+    ];
+    export default{  
+      data(){
+        return {
+          checkedoption:[],
+          Options:perOptions,
+          ind:"null",
+          juse:"null",
+          form:{
+          actname:"",
+          tips:""
+      },  
+          dialogVisible: false,
+          permission:false,
+          menber:false,
+          edit:false,
+          own:false,
+          delet:false,
+          tableData3:[
+          {
+            juese:"管理员",
+            yonghu:"王管理"
+          },
+            {
+              juese:"医生",
+            yonghu:"刘利伟 何颖成 黄洪峰 黄振华 胡苏 梁景炜 李辉 刘林 刘易林 李耀明 王展鹏 温智光 林水运 杨超峰 杨楚新 杨海裕 钟南"
+            
+          },
+          {
+            juese:"药师",
+            yonghu:"刘利伟 何颖成 黄洪峰 黄振华 胡苏 梁景炜 李辉 刘林 刘易林 李耀明 王展鹏 温智光"
+            
+          },
+          {
+            juese:"护士",
+            yonghu:"杨楚新 杨海裕 钟南"
+            
+          },
+          {
+            juese:"收费员",
+            yonghu:"松林 吴少萍 吴宗胜 谢凤 张玉婷 周柳莹"
+            
+          },
+          {
+            juese:"财务",
+            yonghu:"谢凤 张玉婷 周柳莹"
+            
+          }
+          ]
+          }
+    },
+      methods:{
+        add:function(){
+          this.tableData3.push({juese:this.juse,yonghu:this.yonghu})
+        },
+        
+        cout1(index){
+          this.ind=index;
+          this.juse=this.tableData3[index].juese;
+         
+          
+        },
+        deleteRow(){
+           this.tableData3.splice(this.ind,1); 
+        },
+        cout(){
+          // console.log(index);
+          var juese=this.juse;
+          //return this.tableData3[index];
+          return "设置权限-"+juese;
+          // cout1();
+        },
+        
+        handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+      }
+    
+       },
+      
+  }
 </script>
-<style rel="stylesheet">
 
+<style rel="stylesheet">
+  .hotmovie{
+  	width:83%;
+  	float: left;
+    margin: 15px 15px;
+    
+  }  
+   .el-input__inner{
+    border-radius: 0!important;
+    height:28px!important;
+   }
+   .el-table th{
+    background:#eef1f6;
+    border:solid thin #dfe6ec!important;
+   } 
+   .el-table td{
+   /* border:solid thin #dfe6ec!important;*/
+      }
+   .selected{
+       background:20a0ff; 
+   }
 </style>

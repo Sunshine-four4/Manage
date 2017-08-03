@@ -14,6 +14,6 @@
 <style rel="stylesheet">
 	.rightnav{
 		clear: both;
-		padding:1% 2% 4%;
+		padding:1% 2% 1%;
 	}
 </style> 
