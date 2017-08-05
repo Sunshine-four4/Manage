@@ -1,55 +1,109 @@
 <template>
 <div class="hotmovie">
-          <el-button type="text" @click="dialogVisible = true">新增角色</el-button>
-          <el-dialog title="新增角色" :visible.sync="dialogVisible" size="tiny" :before-close="handleClose">
-          <el-form>
-            <el-form-item label="角色名称：">
-                <el-input v-model="juse"></el-input>
-           </el-form-item>
-           <el-form-item label="对应用户：">
-                <el-input v-model="yonghu"></el-input>
-           </el-form-item>
-          </el-form>
-            <span slot="footer" class="dialog-footer">
-              <el-button @click="dialogVisible = false">取 消</el-button>
-              <el-button type="primary" @click="dialogVisible = false,add()">确 定</el-button>
-            </span>
+           <!--  //新增角色 -->
+          <el-button type="primary" style="float:right;margin-bottom:15px" @click="dialogVisible = true">新建角色</el-button>
+          <el-dialog title="新建角色" :visible.sync="dialogVisible" size="tiny" :before-close="handleClose">
+            <el-form>
+                <el-form-item label="角色名称：">
+                    <el-input v-model="juese"></el-input>
+                </el-form-item>
+                <el-form-item label="对应用户：">
+                    <el-input v-model="yonghu"></el-input>
+                </el-form-item>
+            </el-form>
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="dialogVisible = false">取 消</el-button>
+                  <el-button type="primary" @click="dialogVisible = false,add()" >确 定</el-button>
+                </span>
           </el-dialog> 
+
+        <!--  //权限管理表--> 
       <el-table :default-sort="{prop:'botime',order: 'descending'}"  :data="tableData3">
         <el-table-column prop="juese" label="角色" ></el-table-column>
         <el-table-column prop="yonghu" label="对应用户"></el-table-column>
         <el-table-column label="操作" prop="caozuo"  >
             <template scope="scope">
            <!--  //设置权限 -->
-                <el-button size="small" v-if="scope.$index!=0" @click="permission=true,cout1(scope.$index)">设置权限</el-button> 
-                <el-dialog :title="cout() " :visible.sync="permission" size="tiny" :before-close="handleClose">
+          <el-button size="small" type="text"v-if="scope.$index!=0" @click="permission=true,getData(scope.$index)"><i class="el-icon-setting"></i>设置权限</el-button> 
+              <el-dialog :title="setpermission() " :visible.sync="permission" size="tiny" :before-close="handleClose">
                     <el-checkbox-group v-model="checkedoption">
                         <el-checkbox v-for="Option in Options" :label="Option" :key="Option" style="margin:15px;">{{Option}}</el-checkbox>
                     </el-checkbox-group>
-                  <span slot="footer" class="dialog-footer">
+                <span slot="footer" class="dialog-footer">
                     <el-button @click="permission = false">取 消</el-button>
-                    <el-button type="primary" @click="permission = false">确 定</el-button>
-                  </span>
-                </el-dialog> 
+                    <el-button type="primary" @click="permission = false" >确 定</el-button>
+                </span>
+              </el-dialog> 
+
                <!--  //设置成员 -->
-                <el-button size="small" v-if="scope.$index!=0" @click="menber=true">设置成员</el-button>
+                <el-button size="small" type="text" v-if="scope.$index!=0" @click="menber=true,getData(scope.$index)"><i class="el-icon-setting"></i>设置成员</el-button>
+                   <el-dialog :title="setmenber()" :visible.sync="menber" size="tiny" :before-close="handleClose">
+          <el-collapse accordion>
+              <el-collapse-item>
+                  <template slot="title">
+                    <el-checkbox label="医生"></el-checkbox>
+                  </template>
+                    <div><el-checkbox label="司徒怀德"></el-checkbox></div>
+                    <div><el-checkbox label="李小莉"></el-checkbox></div>
+              </el-collapse-item>
+              <el-collapse-item>
+                  <template slot="title">
+                    <el-checkbox label="护士"></el-checkbox>
+                  </template>
+                    <div><el-checkbox label="司徒怀德"></el-checkbox></div>
+                    <div><el-checkbox label="李小莉"></el-checkbox></div>
+              </el-collapse-item>
+              <el-collapse-item>
+                  <template slot="title">
+                    <el-checkbox label="收费员"></el-checkbox>
+                  </template>
+                    <div><el-checkbox label="司徒怀德"></el-checkbox></div>
+                    <div><el-checkbox label="李小莉"></el-checkbox></div>
+              </el-collapse-item>
+              <el-collapse-item>
+                  <template slot="title">
+                    <el-checkbox label="行政"></el-checkbox>
+                  </template>
+                    <div><el-checkbox label="司徒怀德"></el-checkbox></div>
+                    <div><el-checkbox label="李小莉"></el-checkbox></div>
+              </el-collapse-item>
+              <el-collapse-item>
+                  <template slot="title">
+                    <el-checkbox label="财务"></el-checkbox>
+                  </template>
+                    <div><el-checkbox label="司徒怀德"></el-checkbox></div>
+                    <div><el-checkbox label="李小莉"></el-checkbox></div>
+              </el-collapse-item>
+          </el-collapse>
+                  <span slot="footer" class="dialog-footer">
+                    <el-button @click="menber = false">取 消</el-button>
+                    <el-button type="primary" @click="menber = false" >确 定</el-button>
+                  </span>
+                </el-dialog>
+
                <!-- //编辑 -->
-                <el-button size="small" v-if="scope.$index!=0" @click="edit=true">编辑</el-button>  
+                <el-button size="small" type="text" v-if="scope.$index!=0" @click="edit=true"><i class="el-icon-edit"></i>编辑</el-button> 
+
                 <!-- //删除 -->
-                <el-button size="small" v-if="scope.$index!=0" @click=" delet=true,cout1(scope.$index)">删除</el-button>
-                <el-dialog :title="cout(scope.$index) " :visible.sync="delet" size="tiny" :before-close="handleClose">
+                <el-button size="small" type="text" v-if="scope.$index!=0" @click=" delet=true,getData(scope.$index)"><i class="el-icon-delete"></i>删除</el-button>
+                <el-dialog :title="dele()" :visible.sync="delet" size="tiny" :before-close="handleClose">
+                  <i style="font-size:50px;color:red;float:left;"class="el-icon-warning" ></i>
+                  <div>删除后无法恢复</div>
                   <span slot="footer" class="dialog-footer">
                     <el-button @click="delet = false">取 消</el-button>
                     <el-button type="primary" @click="delet = false,deleteRow()">确 定</el-button>
                   </span>
                 </el-dialog> 
+
                <!--  //拥有所有权限 -->
-                <el-button size="small" v-if="scope.$index==0" @click="own=true">拥有所有权限</el-button>
+                <el-button size="small" type="text" v-if="scope.$index==0" @click="own=true">拥有所有权限</el-button>
             </template>
         </el-table-column>  
       </el-table>
       <el-row>
       <el-form style="margin-top:50px"> 
+
+       <!--  选择每页的显示数目 -->
       <el-col :span="3"><div>
          <el-form-item >
              <el-select  placeholder="10条/页">
@@ -60,8 +114,9 @@
              </el-select>
          </el-form-item>
          </div></el-col>
+
+          <!--  显示页码和跳转页 --> 
        <el-col :span="3"><div>
-         
        <div class="block" style="margin-top:2px;">
               <el-pagination layout="prev, pager,next ,jumper" :total="100"></el-pagination>
        </div> 
@@ -134,7 +189,7 @@
           this.tableData3.push({juese:this.juse,yonghu:this.yonghu})
         },
         
-        cout1(index){
+        getData(index){
           this.ind=index;
           this.juse=this.tableData3[index].juese;
          
@@ -143,14 +198,20 @@
         deleteRow(){
            this.tableData3.splice(this.ind,1); 
         },
-        cout(){
-          // console.log(index);
+        setpermission(){
           var juese=this.juse;
-          //return this.tableData3[index];
           return "设置权限-"+juese;
-          // cout1();
+          
         },
-        
+        setmenber(){
+          var juese=this.juse;
+          return "设置成员-"+juese;
+          
+        },
+        dele(){
+          var juese=this.juse;
+          return "确认删除“"+juese+"”角色？？"
+        },
         handleClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {
@@ -165,24 +226,37 @@
 </script>
 
 <style rel="stylesheet">
+
   .hotmovie{
   	width:83%;
   	float: left;
     margin: 15px 15px;
+    background:white; 
+    position:relative;
     
   }  
-   .el-input__inner{
+  .hotmovie .el-table{
+    font-size: 15px;
+    border-radius: 8px!important;
+   box-shadow: 1px 1px  5px #999!important;
+  }
+  .hotmovie .el-table .el-button{
+    padding-left:15px;
+    font-size: 14px !important;
+  }
+  .hotmovie .el-input__inner{
     border-radius: 0!important;
     height:28px!important;
    }
-   .el-table th{
+  .hotmovie .el-table th{
     background:#eef1f6;
     border:solid thin #dfe6ec!important;
    } 
-   .el-table td{
+  .hotmovie .el-table td{
+    height: 70px!important;
    /* border:solid thin #dfe6ec!important;*/
       }
-   .selected{
+  .hotmovie .selected{
        background:20a0ff; 
    }
 </style>

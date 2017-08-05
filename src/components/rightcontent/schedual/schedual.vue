@@ -40,7 +40,7 @@
       </el-table>
 
     <!-- 分页 -->
-    <el-form  > 
+    <el-form> 
          <el-col :span="3"><el-form-item style="width: 100px;height:28px;">
              <el-select  placeholder="10条/页" >
              <el-option label="10条/页" value="shi" class="selected"></el-option>

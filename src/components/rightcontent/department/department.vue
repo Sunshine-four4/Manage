@@ -19,14 +19,14 @@
             </el-form-item> 
           </el-form> 
         </el-dialog>        
-        <el-button type="primary" icon="delete" @click="handleDelete">批量删除</el-button>
-        <el-button type="primary" icon="document" @click="handleDownload">导出</el-button>
+        <el-button type="primary" icon="delete"  @click="removeSelected" :disabled="this.tableData.length === 0">批量删除</el-button>
+        <el-button type="primary" icon="document"  @click="export2Excel">导出</el-button>
       </div>
 
     <!-- 表格 -->
-      <el-table ref="multipleTable" :data="tableData" border tooltip-effect="dark" style="width: 100%;margin-top:20px;margin-bottom:20px" @selection-change="handleSelectionChange">
+      <el-table  v-loading="listLoading" ref="multipleTable" :data="tableData" border tooltip-effect="dark" style="width: 100%;margin-top:20px;margin-bottom:20px" @selection-change="handleSelectionChange" :label="tableData.num">
 
-      <el-table-column type="selection" width="55">
+      <el-table-column type="selection" width="55" v-model="multipleSelection" @selection-change="handleSelectionChange">
       </el-table-column>
       
       <el-table-column  label="序号" show-overflow-tooltip>
@@ -44,7 +44,18 @@
 
       <el-table-column label="操作">
         <template scope="scope">
-          <el-button size="small" >编辑</el-button>
+          <el-button size="small" @click="dialog1Visible = true">编辑</el-button>
+          <el-dialog title="提示" :visible.sync="dialog1Visible" size="tiny" :before-close="handleClose">
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+              <el-form-item label="请输入科室类型" prop="name">
+                <el-input v-model="ruleForm.name"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="editForm('ruleForm')">完成编辑</el-button>
+                <el-button @click="resetForm('ruleForm')">重置</el-button>
+              </el-form-item> 
+            </el-form> 
+          </el-dialog>     
           <el-button size="small" type="danger" @click="deleteRow(scope.$index,tableData)">删除</el-button>
         </template>
       </el-table-column>
@@ -75,6 +86,8 @@
         return {
           dialogVisible: false,
           select:'',
+          listLoading:false,
+          multipleSelection:[],
           typeOptions:[
             { key: '001', display_name: '内科' },
             { key: '002', display_name: '儿科' },
@@ -134,6 +147,7 @@
         };
       },
       methods: {
+        // 删除
         deleteRow(index, rows){
           rows.splice(index, 1)
         },
@@ -141,50 +155,65 @@
 	        this.$confirm('确认关闭？').then(_ => {
 	            done();
 	        }).catch(_ => {});
-	     },
-	     submitForm(formName) {
-         this.$refs[formName].validate((valid) => {
-           if (valid) {
-           	this.tableData.field1=this.ruleForm.name;
-           	// 把数据添加进去表格
-           	this.tableData.unshift({field1:this.tableData.field1});
-             alert('submit!');
-           } else {
-             console.log('error submit!!');
-             return false;
-           }
-         });
-       },
-	     resetForm(formName) {
-	       this.$refs[formName].resetFields();
-	     },
-      handleDownload() {
-        alert(2);
-      //   var vm = this;
-      //   require.ensure([], () => {
-      //     const { export_json_to_excel } = require('@/vendor/Export2Excel');
-      //     const tHeader = ['字段1', '字段2', '字段3', '字段4', '字段5'];
-      //     const filterVal = ['chnlId', 'hisChnlId', 'chnlName', 'state', 'isavailable'];
-      //     const list = vm.list;
-      //     const data = vm.formatJson(filterVal, list);
-      //     export_json_to_excel(tHeader, data, '导出的列表excel');
-      //   })
-      // },
-      // formatJson(filterVal, jsonData) {
-      //   return jsonData.map(v => filterVal.map(j => v[j]))
-      },
-      handleSelectionChange(val) {
-           this.multipleSelection = val;
-      },
-      handleDelete(){
-        var vm = this;
-        alert(this.multipleSelection);
-        alert('批量删除选择的row',vm.multipleSelection);
-        // rows=vm.multipleSelection
-        // deleteRow(index, rows){
-        //   rows.splice(index, rows)
-        // }
-      }
+	      },
+        // 添加
+	      submitForm(formName) {
+          this.$refs[formName].validate((valid) => {
+             if (valid) {
+             	this.tableData.field1=this.ruleForm.name;
+             	// 把数据添加进去表格
+             	this.tableData.unshift({field1:this.tableData.field1});
+               alert('submit!');
+             } else {
+               console.log('error submit!!');
+               return false;
+             }
+          });
+        },
+	      resetForm(formName) {
+	        this.$refs[formName].resetFields();
+	      },
+        // 导出
+        export2Excel() {
+          alert(2);
+        //   var vm = this;
+        //   require.ensure([], () => {
+        //     const { export_json_to_excel } = require('../../../vendor/Export2Excel');
+        //     const tHeader = [ '序号', '类别'];
+        //     const filterVal = ['num', 'field1'];
+        //     const list = vm.tableData;
+        //     const data = vm.formatJson(filterVal, list);
+        //     export_json_to_excel(tHeader, data, '导出的列表excel');
+        //   })
+        // },
+        // formatJson(filterVal, jsonData) {
+        //   return jsonData.map(v => filterVal.map(j => v[j]))
+        // },
+        // 批量删除
+        },
+        handleSelectionChange(val){
+              this.multipleSelection = val;   
+        },
+        removeSelected(){
+          for (var i = 0; i < this.multipleSelection.length; i++) {
+            this.tableData.splice(this.multipleSelection[i],this.multipleSelection.length);
+          }    
+        },
+        //编辑
+        submitForm() {
+          alert(1);
+          // this.$refs[formName].validate((valid) => {
+          //    if (valid) {
+          //     this.tableData.field1=this.ruleForm.name;
+          //     // 把数据添加进去表格
+          //     this.tableData.unshift({field1:this.tableData.field1});
+          //      alert('submit!');
+          //    } else {
+          //      console.log('error submit!!');
+          //      return false;
+          //    }
+          
+        }
     }
   }
 </script>

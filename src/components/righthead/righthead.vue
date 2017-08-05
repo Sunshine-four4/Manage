@@ -7,7 +7,7 @@
 			<el-dropdown split-button type="primary">
 				<div class="avatar-wrapper">
                     <span class="user-name">Nick</span>
-                    <img class="user-avatar" :src="imgURL" @click="handleClick">
+                    <img class="user-avatar" width="30px" :src="Koala" @click="handleClick">
                 </div>
 			  <el-dropdown-menu slot="dropdown">
 			    <el-dropdown-item><el-button type="text" @click="open">首页</el-button></el-dropdown-item>
@@ -25,7 +25,7 @@
 	export default {
 		data() {
 		    return {
-		    	imgURL:'@/assets/img.jpg'
+		    	 Koala:"../static/Koala.jpg"
 		    }
 		},
 		methods: {
