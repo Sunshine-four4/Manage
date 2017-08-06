@@ -38,7 +38,7 @@
 	 		<el-submenu index="6">
 		 		<template slot="title">
 		 		    <i class="el-icon-message"></i>
-		 		    <span slot="title">系统</span>
+		 		    <span slot="title"><router-link to="/permission">系统</router-link></span>
 		 		</template>
 		 		<el-menu-item-group>
 		 		    <el-menu-item index="1-1"><router-link to="/permission">权限管理</router-link></el-menu-item>
@@ -60,4 +60,16 @@
 	    width:14%;
 	    background-color:#eee;
 	}
+	.left li{
+		 background:#324D56 !important;
+	}
+	.left .el-menu li a,.left .el-menu span,.left .el-menu i{
+		
+		font-family: "黑体";
+		color:#94A1AA;
+	}
+	body{
+		background:#324D56;
+	}
+
 </style>

@@ -1,126 +1,132 @@
 <template>
-<div class="hotmovie">
-           <!--  //新增角色 -->
-          <el-button type="primary" style="float:right;margin-bottom:15px" @click="dialogVisible = true">新建角色</el-button>
-          <el-dialog title="新建角色" :visible.sync="dialogVisible" size="tiny" :before-close="handleClose">
-            <el-form>
-                <el-form-item label="角色名称：">
-                    <el-input v-model="juese"></el-input>
-                </el-form-item>
-                <el-form-item label="对应用户：">
-                    <el-input v-model="yonghu"></el-input>
-                </el-form-item>
-            </el-form>
-                <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisible = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisible = false,add()" >确 定</el-button>
-                </span>
-          </el-dialog> 
+<div class="permission">
+    <el-breadcrumb separator="/">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/permission' }">系统</el-breadcrumb-item>
+      <el-breadcrumb-item>权限管理</el-breadcrumb-item>
+    </el-breadcrumb>
 
-        <!--  //权限管理表--> 
-      <el-table :default-sort="{prop:'botime',order: 'descending'}"  :data="tableData3">
-        <el-table-column prop="juese" label="角色" ></el-table-column>
-        <el-table-column prop="yonghu" label="对应用户"></el-table-column>
-        <el-table-column label="操作" prop="caozuo"  >
-            <template scope="scope">
-           <!--  //设置权限 -->
-          <el-button size="small" type="text"v-if="scope.$index!=0" @click="permission=true,getData(scope.$index)"><i class="el-icon-setting"></i>设置权限</el-button> 
-              <el-dialog :title="setpermission() " :visible.sync="permission" size="tiny" :before-close="handleClose">
-                    <el-checkbox-group v-model="checkedoption">
-                        <el-checkbox v-for="Option in Options" :label="Option" :key="Option" style="margin:15px;">{{Option}}</el-checkbox>
-                    </el-checkbox-group>
+     <!--  //新增角色 -->
+    <el-button type="primary" style="float:right;margin-bottom:15px" @click="dialogVisible = true">新建角色</el-button>
+    <el-dialog title="新建角色" :visible.sync="dialogVisible" size="tiny" :before-close="handleClose">
+      <el-form>
+          <el-form-item label="角色名称：">
+              <el-input v-model="juese"></el-input>
+          </el-form-item>
+          <el-form-item label="对应用户：">
+              <el-input v-model="yonghu"></el-input>
+          </el-form-item>
+      </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible = false,add()" >确 定</el-button>
+          </span>
+    </el-dialog> 
+
+      <!--  //权限管理表--> 
+    <el-table :default-sort="{prop:'botime',order: 'descending'}"  :data="tableData3">
+      <el-table-column prop="juese" label="角色" ></el-table-column>
+      <el-table-column prop="yonghu" label="对应用户"></el-table-column>
+      <el-table-column label="操作" prop="caozuo"  >
+          <template scope="scope">
+         <!--  //设置权限 -->
+        <el-button size="small" type="text"v-if="scope.$index!=0" @click="permission=true,getData(scope.$index)"><i class="el-icon-setting"></i>设置权限</el-button> 
+            <el-dialog :title="setpermission() " :visible.sync="permission" size="tiny" :before-close="handleClose">
+                  <el-checkbox-group v-model="checkedoption">
+                      <el-checkbox v-for="Option in Options" :label="Option" :key="Option" style="margin:15px;">{{Option}}</el-checkbox>
+                  </el-checkbox-group>
+              <span slot="footer" class="dialog-footer">
+                  <el-button @click="permission = false">取 消</el-button>
+                  <el-button type="primary" @click="permission = false" >确 定</el-button>
+              </span>
+            </el-dialog> 
+
+             <!--  //设置成员 -->
+              <el-button size="small" type="text" v-if="scope.$index!=0" @click="menber=true,getData(scope.$index)"><i class="el-icon-setting"></i>设置成员</el-button>
+                 <el-dialog :title="setmenber()" :visible.sync="menber" size="tiny" :before-close="handleClose">
+        <el-collapse accordion>
+            <el-collapse-item>
+                <template slot="title">
+                  <el-checkbox label="医生"></el-checkbox>
+                </template>
+                  <div><el-checkbox label="司徒怀德"></el-checkbox></div>
+                  <div><el-checkbox label="李小莉"></el-checkbox></div>
+            </el-collapse-item>
+            <el-collapse-item>
+                <template slot="title">
+                  <el-checkbox label="护士"></el-checkbox>
+                </template>
+                  <div><el-checkbox label="司徒怀德"></el-checkbox></div>
+                  <div><el-checkbox label="李小莉"></el-checkbox></div>
+            </el-collapse-item>
+            <el-collapse-item>
+                <template slot="title">
+                  <el-checkbox label="收费员"></el-checkbox>
+                </template>
+                  <div><el-checkbox label="司徒怀德"></el-checkbox></div>
+                  <div><el-checkbox label="李小莉"></el-checkbox></div>
+            </el-collapse-item>
+            <el-collapse-item>
+                <template slot="title">
+                  <el-checkbox label="行政"></el-checkbox>
+                </template>
+                  <div><el-checkbox label="司徒怀德"></el-checkbox></div>
+                  <div><el-checkbox label="李小莉"></el-checkbox></div>
+            </el-collapse-item>
+            <el-collapse-item>
+                <template slot="title">
+                  <el-checkbox label="财务"></el-checkbox>
+                </template>
+                  <div><el-checkbox label="司徒怀德"></el-checkbox></div>
+                  <div><el-checkbox label="李小莉"></el-checkbox></div>
+            </el-collapse-item>
+        </el-collapse>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="permission = false">取 消</el-button>
-                    <el-button type="primary" @click="permission = false" >确 定</el-button>
+                  <el-button @click="menber = false">取 消</el-button>
+                  <el-button type="primary" @click="menber = false" >确 定</el-button>
+                </span>
+              </el-dialog>
+
+             <!-- //编辑 -->
+              <el-button size="small" type="text" v-if="scope.$index!=0" @click="edit=true"><i class="el-icon-edit"></i>编辑</el-button> 
+
+              <!-- //删除 -->
+              <el-button size="small" type="text" v-if="scope.$index!=0" @click=" delet=true,getData(scope.$index)"><i class="el-icon-delete"></i>删除</el-button>
+              <el-dialog :title="dele()" :visible.sync="delet" size="tiny" :before-close="handleClose">
+                <i style="font-size:50px;color:red;float:left;"class="el-icon-warning" ></i>
+                <div>删除后无法恢复</div>
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="delet = false">取 消</el-button>
+                  <el-button type="primary" @click="delet = false,deleteRow()">确 定</el-button>
                 </span>
               </el-dialog> 
 
-               <!--  //设置成员 -->
-                <el-button size="small" type="text" v-if="scope.$index!=0" @click="menber=true,getData(scope.$index)"><i class="el-icon-setting"></i>设置成员</el-button>
-                   <el-dialog :title="setmenber()" :visible.sync="menber" size="tiny" :before-close="handleClose">
-          <el-collapse accordion>
-              <el-collapse-item>
-                  <template slot="title">
-                    <el-checkbox label="医生"></el-checkbox>
-                  </template>
-                    <div><el-checkbox label="司徒怀德"></el-checkbox></div>
-                    <div><el-checkbox label="李小莉"></el-checkbox></div>
-              </el-collapse-item>
-              <el-collapse-item>
-                  <template slot="title">
-                    <el-checkbox label="护士"></el-checkbox>
-                  </template>
-                    <div><el-checkbox label="司徒怀德"></el-checkbox></div>
-                    <div><el-checkbox label="李小莉"></el-checkbox></div>
-              </el-collapse-item>
-              <el-collapse-item>
-                  <template slot="title">
-                    <el-checkbox label="收费员"></el-checkbox>
-                  </template>
-                    <div><el-checkbox label="司徒怀德"></el-checkbox></div>
-                    <div><el-checkbox label="李小莉"></el-checkbox></div>
-              </el-collapse-item>
-              <el-collapse-item>
-                  <template slot="title">
-                    <el-checkbox label="行政"></el-checkbox>
-                  </template>
-                    <div><el-checkbox label="司徒怀德"></el-checkbox></div>
-                    <div><el-checkbox label="李小莉"></el-checkbox></div>
-              </el-collapse-item>
-              <el-collapse-item>
-                  <template slot="title">
-                    <el-checkbox label="财务"></el-checkbox>
-                  </template>
-                    <div><el-checkbox label="司徒怀德"></el-checkbox></div>
-                    <div><el-checkbox label="李小莉"></el-checkbox></div>
-              </el-collapse-item>
-          </el-collapse>
-                  <span slot="footer" class="dialog-footer">
-                    <el-button @click="menber = false">取 消</el-button>
-                    <el-button type="primary" @click="menber = false" >确 定</el-button>
-                  </span>
-                </el-dialog>
+             <!--  //拥有所有权限 -->
+              <el-button size="small" type="text" v-if="scope.$index==0" @click="own=true">拥有所有权限</el-button>
+          </template>
+      </el-table-column>  
+    </el-table>
+  <el-row>
+  <el-form style="margin-top:50px"> 
+     <!--  选择每页的显示数目 -->
+    <el-col :span="3"><div>
+       <el-form-item >
+           <el-select  placeholder="10条/页">
+           <el-option label="10条/页" value="shi" class="selected"></el-option>
+           <el-option label="20条/页" value="ershi"></el-option>
+           <el-option label="30条/页" value="sanshi"></el-option>
+           <el-option label="50条/页" value="wushi"></el-option>
+           </el-select>
+       </el-form-item>
+       </div>
+    </el-col>
 
-               <!-- //编辑 -->
-                <el-button size="small" type="text" v-if="scope.$index!=0" @click="edit=true"><i class="el-icon-edit"></i>编辑</el-button> 
-
-                <!-- //删除 -->
-                <el-button size="small" type="text" v-if="scope.$index!=0" @click=" delet=true,getData(scope.$index)"><i class="el-icon-delete"></i>删除</el-button>
-                <el-dialog :title="dele()" :visible.sync="delet" size="tiny" :before-close="handleClose">
-                  <i style="font-size:50px;color:red;float:left;"class="el-icon-warning" ></i>
-                  <div>删除后无法恢复</div>
-                  <span slot="footer" class="dialog-footer">
-                    <el-button @click="delet = false">取 消</el-button>
-                    <el-button type="primary" @click="delet = false,deleteRow()">确 定</el-button>
-                  </span>
-                </el-dialog> 
-
-               <!--  //拥有所有权限 -->
-                <el-button size="small" type="text" v-if="scope.$index==0" @click="own=true">拥有所有权限</el-button>
-            </template>
-        </el-table-column>  
-      </el-table>
-      <el-row>
-      <el-form style="margin-top:50px"> 
-
-       <!--  选择每页的显示数目 -->
-      <el-col :span="3"><div>
-         <el-form-item >
-             <el-select  placeholder="10条/页">
-             <el-option label="10条/页" value="shi" class="selected"></el-option>
-             <el-option label="20条/页" value="ershi"></el-option>
-             <el-option label="30条/页" value="sanshi"></el-option>
-             <el-option label="50条/页" value="wushi"></el-option>
-             </el-select>
-         </el-form-item>
-         </div></el-col>
-
-          <!--  显示页码和跳转页 --> 
-       <el-col :span="3"><div>
-       <div class="block" style="margin-top:2px;">
-              <el-pagination layout="prev, pager,next ,jumper" :total="100"></el-pagination>
-       </div> 
-       </div></el-col>
+        <!--  显示页码和跳转页 --> 
+     <el-col :span="3"><div>
+     <div class="block" style="margin-top:2px;">
+            <el-pagination layout="prev, pager,next ,jumper" :total="100"></el-pagination>
+     </div> 
+     </div></el-col>
      </el-form>
     </el-row>   
 </div>
@@ -226,37 +232,39 @@
 </script>
 
 <style rel="stylesheet">
+  
+    .permission{
+      float:right;
+      width:82%;
+      padding:1% 2% 30%;
+      background:#fff;
+    }
 
-  .hotmovie{
-  	width:83%;
-  	float: left;
-    margin: 15px 15px;
-    background:white; 
-    position:relative;
-    
-  }  
-  .hotmovie .el-table{
+  .permission .el-table{
     font-size: 15px;
     border-radius: 8px!important;
    box-shadow: 1px 1px  5px #999!important;
   }
-  .hotmovie .el-table .el-button{
+  .permission .el-table .el-button{
     padding-left:15px;
     font-size: 14px !important;
   }
-  .hotmovie .el-input__inner{
+  .permission .el-input__inner{
     border-radius: 0!important;
     height:28px!important;
    }
-  .hotmovie .el-table th{
+  .permission .el-table th{
     background:#eef1f6;
     border:solid thin #dfe6ec!important;
    } 
-  .hotmovie .el-table td{
+  .permission .el-table td{
     height: 70px!important;
    /* border:solid thin #dfe6ec!important;*/
       }
-  .hotmovie .selected{
+  .permission .selected{
        background:20a0ff; 
+   }
+   .left .el-submenu .el-menu-item{
+     min-width: 0;
    }
 </style>
