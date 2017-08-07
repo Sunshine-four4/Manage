@@ -53,41 +53,94 @@
               			<span style="color:red;">*每次只能修改一张医嘱</span>
               		</li>
               		<li style="float:right;margin-right:0;">
-              			<i class="el-icon-edit "></i>
-              			<span @click="editable = true">修改医嘱</span>
+                    <el-button size="small" v-if="!editableT" @click="editableT = true" style="float:right;" icon="edit">修改医嘱</el-button>
               		</li>
               	</ul>
 
-	          	<el-tabs class="maincontent" v-model="activeName1" @tab-click="handleClick">
-				    <el-tab-pane label="01 挂号费" name="one">11111111111</el-tab-pane>
-			    	<el-tab-pane label="02 西药" name="two">
-				    	<el-table :data="tableData1" style="width: 100%">
-					      <el-table-column prop="guige" label="名称(规格)" width="120">
-					      </el-table-column>
-					      <el-table-column prop="yongliang" label="用量/次" width="120">
-					      </el-table-column>
-					      <el-table-column prop="pinci" label="频次" width="120">
-					      </el-table-column>
-					      <el-table-column prop="tianshu" label="天数" width="120">
-					      </el-table-column>
-					      <el-table-column prop="fayao" label="发药单位" width="120">
-					      </el-table-column>
-					      <el-table-column prop="danjia" label="单价(元)" width="120">
-					      </el-table-column>
-					      <el-table-column prop="heji" label="合计(元)">
-					      </el-table-column>
-					    </el-table>
-				    </el-tab-pane>
-				    <el-tab-pane label="03 检查费" name="three">
-				    	 33333333333
-				    </el-tab-pane>
-			    </el-tabs>
+	          	<el-tabs class="maincontentEdit" v-if="editableT" v-model="activeName1" @tab-click="handleClick">
+    				    <el-tab-pane label="01 挂号费" name="one">11111111111</el-tab-pane>
+    			    	<el-tab-pane label="02 西药" name="two">
+    				    	<el-table :data="tableData1" style="width: 100%" label-width="120">
+		                  	  <!-- <el-table-column label="名称(规格)">
+		                        <el-input v-model="tableData1.guige"></el-input>
+		                      </el-table-column>
+		                      <el-table-column label="用量/次">
+		                        <el-input v-model="tableData1.yongliang"></el-input>
+		                      </el-table-column>
+		                      <el-table-column label="频次">
+		                        <el-input v-model="tableData1.pinci"></el-input>
+		                      </el-table-column>
+		                      <el-table-column label="天数">
+		                        <el-input v-model="tableData1.tianshu"></el-input>
+		                      </el-table-column>
+		                      <el-table-column label="发药单位">
+		                        <el-input v-model="tableData1.fayao"></el-input>
+		                      </el-table-column>
+		                      <el-table-column label="单价(元)">
+		                        <el-input v-model="tableData1.danjia"></el-input>
+		                      </el-table-column>
+		                      <el-table-column label="合计(元)">
+		                        <el-input v-model="tableData1.heji"></el-input>
+		                      </el-table-column> -->
+    					      <el-table-column prop="guige" label="名称(规格)">
+    					      </el-table-column>
+    					      <el-table-column prop="yongliang" label="用量/次">
+    					      </el-table-column>
+    					      <el-table-column prop="pinci" label="频次">
+    					      </el-table-column>
+    					      <el-table-column prop="tianshu" label="天数">
+    					      </el-table-column>
+    					      <el-table-column prop="fayao" label="发药单位">
+    					      </el-table-column>
+    					      <el-table-column prop="danjia" label="单价(元)">
+    					      </el-table-column>
+    					      <el-table-column prop="heji" label="合计(元)">
+    					      </el-table-column>
+    					    </el-table>
+    				    </el-tab-pane>
+    				    <el-tab-pane label="03 检查费" name="three">
+    				    	 33333333333
+    				    </el-tab-pane>
+                <el-button type="primary" @click="submitTable()">提交</el-button>
+                <el-button @click="resetTable()">取消</el-button>
+    			    </el-tabs>
+
+              <el-tabs class="maincontentText" v-else v-model="activeName1" @tab-click="handleClick">
+                  <el-tab-pane label="01 挂号费" name="one">11111111111</el-tab-pane>
+                  <el-tab-pane label="02 西药" name="two">
+                    <el-table :model="tableData1" style="width: 100%" label-width="120">
+                      <el-table-column label="名称(规格)">
+                        <!-- <el-input v-model="tableData1.guige"></el-input> -->{{ tableData1.guige }}
+                      </el-table-column>
+                      <el-table-column label="用量/次">
+                        <!-- <el-input v-model="tableData1.yongliang"></el-input> -->{{tableData1.yongliang}}
+                      </el-table-column>
+                      <el-table-column label="频次">
+                        <!-- <el-input v-model="tableData1.pinci"></el-input> -->{{tableData1.pinci}}
+                      </el-table-column>
+                      <el-table-column label="天数">
+                        <!-- <el-input v-model="tableData1.tianshu"></el-input> -->{{tableData1.tianshu}}
+                      </el-table-column>
+                      <el-table-column label="发药单位">
+                        <!-- <el-input v-model="tableData1.fayao"></el-input> -->{{tableData1.fayao}}
+                      </el-table-column>
+                      <el-table-column label="单价(元)">
+                        <!-- <el-input v-model="tableData1.danjia"></el-input> -->{{tableData1.danjia}}
+                      </el-table-column>
+                      <el-table-column label="合计(元)">
+                        <!-- <el-input v-model="tableData1.heji"></el-input> -->{{tableData1.heji}}
+                      </el-table-column>
+                    </el-table>
+                  </el-tab-pane>
+                  <el-tab-pane label="03 检查费" name="three">
+                     33333333333
+                  </el-tab-pane>
+              </el-tabs>
               </el-col>
 
               <div slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="handleCreateSubmit">确 定</el-button>
                 <el-button @click="returnPremiumVisible = false">取 消</el-button>
-	             
-	            <el-button type="primary" @click="handleCreateSubmit">确 定</el-button>
 	          </div>
           </el-dialog>
 
@@ -106,7 +159,7 @@
 				  </el-form-item>
 				</el-form>
 
-        		<el-form ref="form" :model="form" class="user-basic-info"label-width="80px">
+        		<el-form ref="form" :model="form" class="user-basic-info" label-width="80px">
                   <el-form-item label="性别：" style="display: inline-block;">
                   	<span v-html="sex"></span>
                   </el-form-item>
@@ -174,37 +227,7 @@
                     </el-form>
                   </div>
           	   </el-col>
-
-               <el-col :span="24" class="past-case">
-            	<h2>过往病历</h2>
-            	<el-date-picker v-model="value6" type="daterange" placeholder="选择日期范围">
-  		    	</el-date-picker>
-      		    <div class="sub-title">急性坏疽性阑尾炎伴穿孔</div>
-      		    <span>2017-04-25 11:55:40</span>
-      		    <div>
-	  		    	<i class="el-icon-document"></i>
-	  		    	<span slot="title">
-	  			 		<router-link to="/homepage">详情</router-link>
-	  			 	</span>
-	  			    <i class="el-icon-document"></i>
-	  			    <span slot="title">
-	  					<router-link to="/homepage">复制病例</router-link>
-	  				</span>
-      		    </div>
-      		    <div class="sub-title">副伤寒</div>
-      		    <span>2017-04-25 11:55:40</span>
-      		    <div>
-      		    	<i class="el-icon-document"></i>
-      		    	<span slot="title">
-      			 		<router-link to="/homepage">详情</router-link>
-      			 	</span>
-      			    <i class="el-icon-document"></i>
-      			    <span slot="title">
-      					<router-link to="/homepage">复制病例</router-link>
-      				</span>
-      		    </div>
-                </el-col>
-                </el-col>
+          </el-col>
 
                 <el-col :span="18" class="inquiry-info">
                   <el-col :span="24" class="user-inquiry-info">
@@ -213,48 +236,90 @@
                       	<li>
                       		就诊时间：<span v-html="clinic_time"></span>
                       	</li>
-		                <li>
-		                  	就诊时间：<span v-html="clinic_doctor"></span>
-		                </li>
-		                <li>
-		                	<el-radio-group v-model="clinictype">
-	  					      <el-radio label="初诊"></el-radio>
-	  					      <el-radio label="复诊"></el-radio>
-	  					    </el-radio-group>
-		                </li>
+    		                <li>
+    		                  	就诊时间：<span v-html="clinic_doctor"></span>
+    		                </li>
+    		                <li>
+    		                	<el-radio-group v-model="clinictype">
+        	  					      <el-radio label="初诊"></el-radio>
+        	  					      <el-radio label="复诊"></el-radio>
+      	  					      </el-radio-group>
+    		                </li>
 		                
-		                <li>
-		                	结算类型：
-		                	<el-select v-model="accounttype" placeholder="默认">
-      					      <el-option label="类型一" value="type1"></el-option>
-      					      <el-option label="类型二" value="type2"></el-option>
-      					    </el-select>
-		                </li>
+    		                <li>
+    		                	结算类型：
+    		                	<el-select v-model="accounttype" placeholder="默认">
+          					      <el-option label="类型一" value="type1"></el-option>
+          					      <el-option label="类型二" value="type2"></el-option>
+          					    </el-select>
+    		                </li>
                       </ul>
 
                       <el-tabs class="tab-menu" v-model="activeName2" @tab-click="handleClick">
-    				    <el-tab-pane label="病历" name="first">病历的内容</el-tab-pane>
-    				    <el-tab-pane label="医嘱" name="second">医嘱的内容</el-tab-pane>
-    				    <el-tab-pane label="检验检查" name="third">
-    				    	 <el-table :data="tableData2" style="width: 100%">
-						      <el-table-column prop="kind" label="类型" width="180">
-						      </el-table-column>
-						      <el-table-column prop="room" label="执行科室" width="180">
-						      </el-table-column>
-						      <el-table-column prop="itemname" label="项目名称" width="180">
-						      </el-table-column>
-						      <el-table-column prop="attention" label="注意事项" width="180">
-						      </el-table-column>
-						      <el-table-column prop="price" label="价格(元)">
-						      </el-table-column>
-						    </el-table>
-    				    </el-tab-pane>
-    				    <el-tab-pane label="缴费" name="fourth">缴费的内容</el-tab-pane>
-    				    <el-tab-pane label="随访" name="fifth">随访的内容</el-tab-pane>
-    				    <el-button style="float:right; margin-top:10px;" type="success">查看报告</el-button>
-    				 </el-tabs>
+            				    <el-tab-pane label="病历" name="first">病历的内容</el-tab-pane>
+            				    <el-tab-pane label="医嘱" name="second">医嘱的内容</el-tab-pane>
+            				    <el-tab-pane label="检验检查" name="third">
+            				    	 <el-table :data="tableData2" style="width: 100%">
+            						      <el-table-column prop="kind" label="类型" width="180">
+            						      </el-table-column>
+            						      <el-table-column prop="room" label="执行科室" width="180">
+            						      </el-table-column>
+            						      <el-table-column prop="itemname" label="项目名称" width="180">
+            						      </el-table-column>
+            						      <el-table-column prop="attention" label="注意事项" width="180">
+            						      </el-table-column>
+            						      <el-table-column prop="price" label="价格(元)">
+            						      </el-table-column>
+          						     </el-table>
+            				    </el-tab-pane>
+            				    <el-tab-pane label="缴费" name="fourth">缴费的内容</el-tab-pane>
+            				    <el-tab-pane label="随访" name="fifth">随访的内容</el-tab-pane>
+            				    <el-button style="float:right; margin-top:10px;" type="success">查看报告</el-button>
+            				  </el-tabs>
 
                   </el-col>
+
+                  <el-col :span="24" class="past-case">
+    	            	<h2>过往病历</h2>
+    	            	<el-date-picker v-model="value6" type="daterange" placeholder="选择日期范围"></el-date-picker>
+      	  		    	<div>
+      	  		    		<ul>
+      	  		    			<li>急性坏疽性阑尾炎伴穿孔</li>
+      	  		    			<li><span>2017-04-25 11:55:40</span></li>
+      	  		    			<li>
+      	  		    				<i class="el-icon-document"></i>
+      				  		    	<span slot="title">
+      				  			 		<router-link to="/homepage">详情</router-link>
+      				  			 	</span>
+      			  		    	</li>
+      	  		    			<li>
+      	  		    				<i class="el-icon-document"></i>
+      				  			    <span slot="title">
+      				  					<router-link to="/homepage">复制病例</router-link>
+      				  				</span>
+      	  		    			</li>
+      	  		    		</ul>
+
+      	  		    		<ul>
+      	  		    			<li>急性坏疽性阑尾炎伴穿孔</li>
+      	  		    			<li><span>2017-04-25 11:55:40</span></li>
+      	  		    			<li>
+      	  		    				<i class="el-icon-document"></i>
+      				  		    	<span slot="title">
+      				  			 		<router-link to="/homepage">详情</router-link>
+      				  			 	</span>
+      			  		    	</li>
+      	  		    			<li>
+      	  		    				<i class="el-icon-document"></i>
+      				  			    <span slot="title">
+      				  					<router-link to="/homepage">复制病例</router-link>
+      				  				</span>
+      	  		    			</li>
+      	  		    		</ul>
+      	  		    	</div>
+	      		    
+                  </el-col>
+
                 </el-col>
         </el-row>
 	</div>
@@ -265,6 +330,7 @@
     data() {
       return {
         returnPremiumVisible: false,
+        editableT:false,
       	name:'<b>李春华</b>',
       	sex:'<b>女</b>',
       	age:'<b>18</b>',
@@ -313,7 +379,7 @@
         clinictype:'',
         accounttype:'',
         activeName1: 'two',
-    	activeName2: 'second',
+    	activeName2: 'third',
         
     }
     },
@@ -341,9 +407,42 @@
           // //这里作演示用，正式新增 请提交到接口
           // vm.list.push(vm.temp)
           // console.log('新增后',vm.list)
-          
           this.returnPremiumVisible = false;
       },
+      //提交修改医嘱
+      submitTable() {
+        var vm = this;
+        vm.editableT = false;
+        var par = [
+        {
+          "guige":vm.tableData1.guige,
+          "yongliang":vm.tableData1.yongliang,
+          "pinci":vm.tableData1.pinci,
+          "tianshu":vm.tableData1.tianshu,
+          "fayao":vm.tableData1.fayao,
+          "danjia":vm.tableData1.danjia,
+          "heji":vm.tableData1.heji,
+
+        },
+        {
+          "guige":vm.tableData1.guige,
+          "yongliang":vm.tableData1.yongliang,
+          "pinci":vm.tableData1.pinci,
+          "tianshu":vm.tableData1.tianshu,
+          "fayao":vm.tableData1.fayao,
+          "danjia":vm.tableData1.danjia,
+          "heji":vm.tableData1.heji,
+        }
+        ];
+        console.log('修改信息入参为：',par)
+      },
+
+      //重置医嘱
+    resetTable() {
+        var vm = this;
+        vm.editableT = false;
+        vm.tableData1 = JSON.parse( JSON.stringify(vm.tableData1_init) ) ;
+    },
     //提交表单
     submitForm() {
         var vm = this;
@@ -376,8 +475,9 @@
 <style>
 	.formedit{
 	  	width:82%;
-	  	margin:0 2%;
-	  	float:right;	
+	  	padding:1% 2% 1%;
+	  	float:right;
+      background: #fff;
 	}
   .info-top{
     margin-top: 10px;
@@ -398,7 +498,7 @@
   	margin: 10px 0;
   	border: 1px solid #dee1e2;
   }
-  .maincontent{
+  .maincontentEdit{
   	/*padding: 10px;*/
   	margin: 10px 0;
   	border: 1px solid #dee1e2;
@@ -463,17 +563,25 @@
         background: #f6f6f7;
     }
     .user-inquiry-info li{
-		margin-right: 26px;
+		margin-right: 30px;
 	    list-style: none;
 	    display: inline-block;
+	}
+	.user-inquiry-info .el-select > .el-input{
+		width: 80px;
 	}
     .inquiry-info span{
     	font-size: 14px;
     }
-    .inquiry-info .el-input__inner {
-    	width: 100px;
-	}
 	.inquiry-info .tab-menu{
 		margin-bottom: 10px;
+	}
+	.past-case li{
+		margin: 20px 40px;
+		list-style: none;
+	    display: inline-block;
+	}
+	.past-case .el-date-editor{
+		margin: 2% 4%;
 	}
  </style>
