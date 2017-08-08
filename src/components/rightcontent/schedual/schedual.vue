@@ -77,10 +77,10 @@
 
       <el-dialog title="修改医生信息" v-model="dialogUpdateVisible"  >
    
-          <el-form id="#update" :model="tableData[i]"  ref="update" label-width="100px">
+          <el-form  :model="update"  ref="update" label-width="100px">
 
               <el-form-item label="日期">
-                  <el-input v-model="tableData[i].date"></el-input>
+                  <el-input v-model="update.date"></el-input>
               </el-form-item>
               <!-- <el-form-item label="日期" >
                <el-date-picker v-model="tableData[i].date" type="date" placeholder="选择日期" >
@@ -89,10 +89,10 @@
 
 
               <el-form-item label="医生姓名" >
-                  <el-input v-model="tableData[i].name"></el-input>
+                  <el-input v-model="update.name"></el-input>
               </el-form-item>
               <el-form-item label="预约时间段" >
-                  <el-input v-model="tableData[i].appointment"></el-input>
+                  <el-input v-model="update.appointment"></el-input>
               </el-form-item>
           </el-form>
 
@@ -141,38 +141,7 @@
                     dialogUpdateVisible: false, //编辑对话框的显示状态
                     addVisble:false, //添加对话框的显示状态
                     sels: [],//删除选中的值的显示
-
-                    tableData: [{
-                      
-                      date: '2016-05-02',
-                      name: '王医生',
-                      appointment: '9.00-11.00'
-                   
-                    }, {
-                      
-                      date: '2016-05-04',
-                      name: '李护士',
-                      appointment: '9.00-11.00'
-                     
-                    }, {
-                      
-                      date: '2016-05-01',
-                      name: '王小虎',
-                      appointment: '9.00-11.00'
-                      
-                    }, {
-                      
-                      date: '2016-05-04',
-                      name: '陈医生',
-                      appointment: '9.00-11.00'
-                      
-                    }, {
-                      
-                      date: '2016-05-03',
-                      name: '黄护士',
-                      appointment: '9.00-11.00'
-                     
-                    }],
+                    tableData:null,
 
                     update:{
 
@@ -182,7 +151,23 @@
                     }               
             }
       },
+      mounted:function(){
+        this.getData();
+      },
       methods: {
+          // 获取schedul.json
+          getData(){ 
+                    this.$http.get('../../../../static/dataJson/schedual.json').then(
+                        function(response){
+                            // alert("请求成功");
+                            console.log(response.data);
+                            this.tableData=response.data.tableData;
+                            
+                        },function(){
+                            alert("请求不成功");
+                        })
+
+                    },    
           // 单个删除
           deleteRow(index, rows){
             rows.splice(index, 1)
@@ -208,12 +193,7 @@
           sure(){       
           var vm = this;
           vm.dialogUpdateVisible=false;
-          // var par = {
-          //     "date":  vm.update.date,
-          //     "name": vm.update.name,
-          //     "appointment": vm.update.appointment   
-          // };
-          // console.log('修改信息入参为：',par)
+          this.tableData[this.i].date=this.update.date;
           },
 
           //添加
@@ -256,11 +236,13 @@
             }).catch(() => {
 
             });
-          }
-        },
+          },
           handleCurrentChange(row, event, column) {  
             this.$refs.table.toggleRowSelection(row);  
-          }   
+          },
+       
+        }
+         
      
     }
 </script>

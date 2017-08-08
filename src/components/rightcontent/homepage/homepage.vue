@@ -1,5 +1,8 @@
  <template>
 	<div class="homepage">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>首页</el-breadcrumb-item>
+      </el-breadcrumb>
 	    <el-row :gutter="20">
 		    <el-col :span="16">
 			    <el-table :data="tableData1" >

@@ -13,7 +13,7 @@
 			    <el-dropdown-item><el-button type="text" @click="open">首页</el-button></el-dropdown-item>
 			    <el-dropdown-item>切换主题</el-dropdown-item>
 			    <el-dropdown-item>修改密码</el-dropdown-item>
-			    <el-dropdown-item>退出登录</el-dropdown-item>
+			    <el-dropdown-item><el-button type="text" @click="exit">退出登录</el-button></el-dropdown-item>
 			  </el-dropdown-menu>
 			</el-dropdown>
 		</div>
@@ -30,15 +30,10 @@
 		},
 		methods: {
 		    open() {
-		       this.$alert('这是一段内容', '标题名称', {
-		         confirmButtonText: '确定',
-		         callback: action => {
-		           this.$message({
-		             type: 'info',
-		             message: `action: ${ action }`
-		           });
-		         }
-		       });
+		       this.$router.push('/loginSuccess/homepage')
+		    },
+		    exit() {
+		       this.$router.push('/login')
 		    }
 		}
 	}

@@ -1,0 +1,32 @@
+{
+	"personalInfo":{
+                "PerName":"Nike",
+                "sex":"女",
+                "age":"46",
+                "subordinate":"内科",
+                "subtitle":"-",
+                "phone":"-",
+                "login":"abcdefg",
+                "email":"-"
+                },
+  "options":
+   [
+                 {
+                  "value": "内科",
+                  "label": "内科"
+                }, {
+                  "value": "外科",
+                  "label": "外科"
+                }, {
+                  "value": "精神科",
+                  "label": "精神"
+                }, {
+                  "value": "儿科",
+                  "label": "儿科"
+                }, {
+                  "value": "妇科",
+                  "label": "妇科"
+                }
+  ]
+
+}

@@ -1,12 +1,9 @@
- <template>
-    <div class="info">
-    1
-    </div>
-              
+<template>
+	<div class="info">
+		info
+	</div>
 </template>
-
-<script type="ecmascript-6">
-export default {  
- 
-}  
-</script>  
+<script>
+</script>
+<style>
+</style>

@@ -1,5 +1,9 @@
 <template>
 	<div class="formedit">
+    <el-breadcrumb separator="/">
+      <el-breadcrumb-item :to="{ path: '/loginSuccess/homepage' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>问诊</el-breadcrumb-item>
+    </el-breadcrumb>
 		<el-row :gutter="20">
           <el-col :span="24" class="info-top">
               <ul>
@@ -7,7 +11,7 @@
                 <li>
                   <i class="el-icon-setting "></i>
                   <span class="record">
-                  <router-link to="/homepage">切换就诊人</router-link>
+                  <router-link to="/loginSuccess/see">切换就诊人</router-link>
                   </span>
                 </li>
                 <li style="float:right;">
@@ -20,7 +24,7 @@
                 <li style="float:right;">
                   <i class="el-icon-setting "></i>
                   <span class="record">
-                  <router-link to="/homepage">打印预览</router-link>
+                  <router-link to="/loginSuccess/see">打印预览</router-link>
                   </span>
                 </li>
               
@@ -154,7 +158,7 @@
 				  <el-form-item>
 				    <i class=" el-icon-document "></i>
 				    <span class="record">
-				    <router-link to="/homepage">查看档案</router-link>
+				    <router-link to="/loginSuccess/see">查看档案</router-link>
 				    </span>
 				  </el-form-item>
 				</el-form>
@@ -289,13 +293,13 @@
       	  		    			<li>
       	  		    				<i class="el-icon-document"></i>
       				  		    	<span slot="title">
-      				  			 		<router-link to="/homepage">详情</router-link>
+      				  			 		<router-link to="/loginSuccess/see">详情</router-link>
       				  			 	</span>
       			  		    	</li>
       	  		    			<li>
       	  		    				<i class="el-icon-document"></i>
       				  			    <span slot="title">
-      				  					<router-link to="/homepage">复制病例</router-link>
+      				  					<router-link to="/loginSuccess/see">复制病例</router-link>
       				  				</span>
       	  		    			</li>
       	  		    		</ul>
@@ -306,7 +310,7 @@
       	  		    			<li>
       	  		    				<i class="el-icon-document"></i>
       				  		    	<span slot="title">
-      				  			 		<router-link to="/homepage">详情</router-link>
+      				  			 		<router-link to="/loginSuccess/see">详情</router-link>
       				  			 	</span>
       			  		    	</li>
       	  		    			<li>
