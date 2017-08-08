@@ -2,7 +2,7 @@
     <div class="scheduling">
         
         <el-breadcrumb separator="/">
-          <el-breadcrumb-item :to="{ path: '/homepage'}">首页
+          <el-breadcrumb-item :to="{ path: '/loginSuccess/homepage'}">首页
           </el-breadcrumb-item>
           <el-breadcrumb-item>排班</el-breadcrumb-item>
         </el-breadcrumb>
@@ -132,55 +132,55 @@
  
   export default{
        data() {
-                return {
-                    i:0,
-                    selectData: '',
-                    doctorName:'',
-                    select:'',
-                    data:'',
-                    dialogUpdateVisible: false, //编辑对话框的显示状态
-                    addVisble:false, //添加对话框的显示状态
-                    sels: [],//删除选中的值的显示
+          return {
+              i:0,
+              selectData: '',
+              doctorName:'',
+              select:'',
+              data:'',
+              dialogUpdateVisible: false, //编辑对话框的显示状态
+              addVisble:false, //添加对话框的显示状态
+              sels: [],//删除选中的值的显示
 
-                    tableData: [{
-                      
-                      date: '2016-05-02',
-                      name: '王医生',
-                      appointment: '9.00-11.00'
-                   
-                    }, {
-                      
-                      date: '2016-05-04',
-                      name: '李护士',
-                      appointment: '9.00-11.00'
-                     
-                    }, {
-                      
-                      date: '2016-05-01',
-                      name: '王小虎',
-                      appointment: '9.00-11.00'
-                      
-                    }, {
-                      
-                      date: '2016-05-04',
-                      name: '陈医生',
-                      appointment: '9.00-11.00'
-                      
-                    }, {
-                      
-                      date: '2016-05-03',
-                      name: '黄护士',
-                      appointment: '9.00-11.00'
-                     
-                    }],
+              tableData: [{
+                
+                date: '2016-05-02',
+                name: '王医生',
+                appointment: '9.00-11.00'
+             
+              }, {
+                
+                date: '2016-05-04',
+                name: '李护士',
+                appointment: '9.00-11.00'
+               
+              }, {
+                
+                date: '2016-05-01',
+                name: '王小虎',
+                appointment: '9.00-11.00'
+                
+              }, {
+                
+                date: '2016-05-04',
+                name: '陈医生',
+                appointment: '9.00-11.00'
+                
+              }, {
+                
+                date: '2016-05-03',
+                name: '黄护士',
+                appointment: '9.00-11.00'
+               
+              }],
 
-                    update:{
+              update:{
 
-                      date:'',
-                      name:'',
-                      appointment:''
-                    }               
-            }
+                date:'',
+                name:'',
+                appointment:''
+              }               
+          }
       },
       methods: {
           // 单个删除
@@ -284,7 +284,6 @@
       padding:1% 2% 15%;
       background:#fff;
       margin-top: -1px;
-
-}
+    }
    
 </style>

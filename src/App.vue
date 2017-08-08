@@ -1,28 +1,23 @@
 <template>
   <div id="app">
-    <v-left></v-left>
-    <div class="right">
-        <v-righthead></v-righthead>
-    <!--   <div class="rightcontent">24</div> -->
-    </div>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-    import left from '@/components/left/left.vue'
-    import righthead from '@/components/righthead/righthead.vue'
-    export default {
-      name: 'app',
-      components:{
-        'v-left':left,
-        'v-righthead':righthead
-      }
-    }
+    // import left from '@/components/left/left.vue'
+    // import righthead from '@/components/righthead/righthead.vue'
+    // export default {
+    //   name: 'app',
+    //   components:{
+    //     'v-left':left,
+    //     'v-righthead':righthead
+    //   }
+    // }
 </script>
 
 <style>
-    *{
+    /**{
       margin:0px;
       padding:0px;
     }
@@ -32,5 +27,5 @@
     }
     .rightcontent{
       clear:both;
-    }
+    }*/
 </style>

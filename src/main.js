@@ -13,6 +13,8 @@ import department from '@/components/rightcontent/department/department.vue'
 import info from '@/components/rightcontent/info/info.vue'
 import permission from '@/components/rightcontent/systemset/permission.vue'
 import log from '@/components/rightcontent/systemset/log.vue'
+import login from '@/components/login/login.vue'
+import loginSuccess from '@/components/loginSuccess/loginSuccess.vue'
 
 Vue.use(VueRouter);
 Vue.use(ElementUI);
@@ -20,15 +22,22 @@ Vue.config.productionTip = false
 
 
 const routes = [
-	{path: '/homepage',component: homepage},
-	{path: '/schedual',component: schedual},
-	{path: '/book',component: book},
-	{path: '/see',component: see},
-	{path: '/department',component: department},
-	{path: '/info',component: info},
-	{path: '/permission',component: permission},
-	{path: '/log',component:log},
-	{path:'*',redirect:'/homepage'}
+	{path:'/',redirect:'/login'},
+	{path: '/login',component: login},
+	{path: '/loginSuccess',component: loginSuccess,
+		children:[     
+	       { path: 'homepage', component: homepage },	       
+	       { path: 'schedual', component: schedual },  
+	       { path: 'book', component: book },
+	       { path: 'see', component: see },
+	       { path:'info',component:info},
+	       { path:'department',component:department},
+	       { path: 'permission', component: permission },
+	       { path: 'log', component: log },
+	       // 使得已进入主页面，就会默认出现首页内容
+	       { path: '/', component: homepage },
+		]
+	}
 ]
 
 const router = new VueRouter({

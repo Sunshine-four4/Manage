@@ -1,8 +1,8 @@
 <template>
     <div class="department">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/info' }">信息</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/loginSuccess/homepage' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/loginSuccess/info' }">信息</el-breadcrumb-item>
         <el-breadcrumb-item>科室信息</el-breadcrumb-item>
       </el-breadcrumb>
       <div exampleform-row>
@@ -108,8 +108,9 @@
             num: '0',
             field1: '呼吸内科'
  
-            }, {
-               num: '1',
+            }, 
+            {
+              num: '1',
               field1: '消化内科'
            
             }, {

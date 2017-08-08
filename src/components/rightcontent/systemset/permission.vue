@@ -1,21 +1,27 @@
 <template>
 <div class="permission">
-           <!--  //新增角色 -->
-          <el-button type="primary" style="float:right;margin-bottom:15px" @click="dialogVisible = true">新建角色</el-button>
-          <el-dialog title="新建角色" :visible.sync="dialogVisible" size="tiny" :before-close="handleClose">
-            <el-form>
-                <el-form-item label="角色名称：">
-                    <el-input v-model="juese"></el-input>
-                </el-form-item>
-                <el-form-item label="对应用户：">
-                    <el-input v-model="yonghu"></el-input>
-                </el-form-item>
-            </el-form>
-                <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisible = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisible = false,add()" >确 定</el-button>
-                </span>
-          </el-dialog> 
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/loginSuccess/homepage' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/loginSuccess/permission' }">系统</el-breadcrumb-item>
+        <el-breadcrumb-item>权限管理</el-breadcrumb-item>
+      </el-breadcrumb>
+
+      <!--  //新增角色 -->
+      <el-button type="primary" style="float:right;margin-bottom:15px" @click="dialogVisible = true">新建角色</el-button>
+      <el-dialog title="新建角色" :visible.sync="dialogVisible" size="tiny" :before-close="handleClose">
+        <el-form>
+            <el-form-item label="角色名称：">
+                <el-input v-model="juese"></el-input>
+            </el-form-item>
+            <el-form-item label="对应用户：">
+                <el-input v-model="yonghu"></el-input>
+            </el-form-item>
+        </el-form>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="dialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="dialogVisible = false,add()" >确 定</el-button>
+            </span>
+      </el-dialog> 
 
         <!--  //权限管理表--> 
       <el-table  :data="tableData3">
