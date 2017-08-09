@@ -98,6 +98,7 @@
           select:'',
           listLoading:false,
           multipleSelection:[],
+          value:'',
           // typeOptions:[
           //   { key: '001', display_name: '内科' },
           //   { key: '002', display_name: '儿科' },
@@ -168,6 +169,7 @@
           ruleForm: {
                     name: ''
           },
+          rule:'',
           rules: {
             name: [
               { required: true, message: '请输入类型名称', trigger: 'blur' },

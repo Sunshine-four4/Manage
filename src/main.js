@@ -15,10 +15,7 @@ import permission from '@/components/rightcontent/systemset/permission.vue'
 import log from '@/components/rightcontent/systemset/log.vue'
 import login from '@/components/login/login.vue'
 import loginSuccess from '@/components/loginSuccess/loginSuccess.vue'
-<<<<<<< HEAD
 import VueResource from 'vue-resource'
-=======
->>>>>>> e2731c63fab0aec9b2756d32dc5aaf238c8ee9c2
 
 Vue.use(VueRouter);
 Vue.use(VueResource);

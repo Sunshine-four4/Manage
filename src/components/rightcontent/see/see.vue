@@ -163,7 +163,7 @@
 				  </el-form-item>
 				</el-form>
 
-        		<el-form ref="form" :model="form" class="user-basic-info" label-width="80px">
+        		<el-form ref="form" class="user-basic-info" label-width="80px">
                   <el-form-item label="性别：" style="display: inline-block;">
                   	<span v-html="sex"></span>
                   </el-form-item>
@@ -342,6 +342,7 @@
       	remarks:'<b>各项指标良好！</b>',
         editable:false,
         Koala:"../static/Koala.jpg",
+        formInline:'',
         personalInfo:{
         	height:"175",
         	weight:"50kg",

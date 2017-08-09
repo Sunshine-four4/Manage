@@ -12,51 +12,51 @@
 				    </el-select>
 
 				    <el-tabs type="border-card">
-					  <el-tab-pane label="刘医生">
-					  	<div class="doctor">
-					  		<span><b>刘医生</b></span>
-					  		<el-button-group>
-							  <el-button size="small" type="primary">出诊</el-button>
-							  <el-button size="small">09:00~11:00</el-button>
-							</el-button-group>
-					  	</div>
-					  	<div class="patient">
-					  		<ul v-for="visitInfo in visitInfos" :data="visitInfos">
-					  			<li style="float:left;margin-top:20px"><span v-text="visitInfo.visitTime"></span></li>
-					  			<li>
-					  				<span v-text="visitInfo.visitPeople"></span>
-					  				<p>1234567890</p>
-					  			</li>
-					  			<li>
-					  				<el-button style="float:left;" size="small" type="warning" v-text="visitInfo.visitState"></el-button>
-					  			<li style="float:right;margin-top:20px">
-						  			<router-link to="##">
-						  				<i class="el-icon-close"></i>
-							  			<span v-text="visitInfo.visitDelect"></span>
-						  			</router-link>
-						  			
-					  			</li>
-					  			<li style="float:right;margin-top:20px">
-						  			<router-link to="##">
-						  				<i class="el-icon-document"></i>
-							  			<span v-text="visitInfo.visitDetail"></span>
-						  			</router-link>
-					  			</li>
-					  			<li style="float:right;margin-top:20px">
-						  			<router-link to="##">
-						  				<i class="el-icon-edit"></i>
-							  			<span v-text="visitInfo.visitMeasurment"></span>
-						  			</router-link>
-					  			</li>
-					  			<li style="float:right;margin-top:20px">
-						  			<router-link to="##">
-						  				<i class="el-icon-time"></i>
-							  			<span v-text="visitInfo.visitSign"></span>
-						  			</router-link>	
-					  			</li>
-					  		</ul>
-					  	</div>
-					  </el-tab-pane>
+					  	<el-tab-pane label="刘医生">
+						  	<div class="doctor">
+						  		<span><b>刘医生</b></span>
+						  		<el-button-group>
+								  <el-button size="small" type="primary">出诊</el-button>
+								  <el-button size="small">09:00~11:00</el-button>
+								</el-button-group>
+						  	</div>
+						  	<div class="patient">
+						  		<ul v-for="visitInfo in visitInfos" :data="visitInfos">
+						  			<li style="float:left;margin-top:20px"><span v-text="visitInfo.visitTime"></span></li>
+						  			<li>
+						  				<span v-text="visitInfo.visitPeople"></span>
+						  				<p>1234567890</p>
+						  			</li>
+						  			<li>
+						  				<el-button style="float:left;" size="small" type="warning" v-text="visitInfo.visitState"></el-button>
+						  			<li style="float:right;margin-top:20px">
+							  			<router-link to="##">
+							  				<i class="el-icon-close"></i>
+								  			<span v-text="visitInfo.visitDelect"></span>
+							  			</router-link>
+							  			
+						  			</li>
+						  			<li style="float:right;margin-top:20px">
+							  			<router-link to="##">
+							  				<i class="el-icon-document"></i>
+								  			<span v-text="visitInfo.visitDetail"></span>
+							  			</router-link>
+						  			</li>
+						  			<li style="float:right;margin-top:20px">
+							  			<router-link to="##">
+							  				<i class="el-icon-edit"></i>
+								  			<span v-text="visitInfo.visitMeasurment"></span>
+							  			</router-link>
+						  			</li>
+						  			<li style="float:right;margin-top:20px">
+							  			<router-link to="##">
+							  				<i class="el-icon-time"></i>
+								  			<span v-text="visitInfo.visitSign"></span>
+							  			</router-link>	
+						  			</li>
+						  		</ul>
+						  	</div>
+					  	</el-tab-pane>
 					  <el-tab-pane label="刘医生">bbbb</el-tab-pane>
 					  <el-tab-pane label="张医生">ccccc</el-tab-pane>
 					  <el-tab-pane label="李医生">ddddd</el-tab-pane>
@@ -73,7 +73,7 @@
 			  			</li>
 			  			<li>
 			  				<span>患者：</span>
-			  				<el-input style="width:inherit;" v-model="input" placeholder="请输入患者姓名"></el-input>
+			  				<el-input style="width:inherit;" placeholder="请输入患者姓名"></el-input>
 			  			</li>
 			  			<li>
 			  				<span>科室：</span>
@@ -127,7 +127,7 @@
 				      </el-table-column>
 				      <el-table-column prop="operation" label="操作">
 				      	<template scope="scope">
-					        <el-button @click="handleClick" type="text" icon="document" size="small">查看</el-button>
+					        <el-button type="text" icon="document" size="small">查看</el-button>
 					        <el-button type="text" icon="close" size="small">取消</el-button>
 				        </template>
 				      </el-table-column>
@@ -212,11 +212,13 @@ export default {
 			roomtype1:'',
 			roomtype2:'',
 			Doctors:'',
+			value1:'',
 			clinictype:'',
 			daterange:'',
 			visitInfos:null,
 			appointmentData:null,
-			currentPage4: 4
+			currentPage4: 4,
+			timeData:''
 		}
 	},
 	mounted:function(){
@@ -246,6 +248,9 @@ export default {
 	       handleCurrentChange(val) {
         		console.log(`当前页: ${val}`);
 	        },
+	        pickerOptions0(){
+
+	        }
     }    
 
 }

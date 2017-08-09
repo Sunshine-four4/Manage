@@ -22,7 +22,7 @@
         </div>
 
     <!-- 表格 -->
-        <el-table :data="tableData"  border style="width: 100%"  highlight-current-row v-loading="listLoading" @selection-change="selsChange" ref="table">
+        <el-table :data="tableData"  border style="width: 100%"  highlight-current-row @selection-change="selsChange" ref="table">
       
             <el-table-column type="selection" width="55">
             </el-table-column>
@@ -56,10 +56,10 @@
              <el-col :span="3">
                <el-form-item style="width: 100px;height:28px;">
                    <el-select  placeholder="10条/页" >
-                   <el-option label="10条/页" value="shi" class="selected"></el-option>
-                   <el-option label="20条/页" value="ershi"></el-option>
-                   <el-option label="30条/页" value="sanshi"></el-option>
-                   <el-option label="50条/页" value="wushi"></el-option>
+                   <el-option label="10条/页" class="selected"></el-option>
+                   <el-option label="20条/页"></el-option>
+                   <el-option label="30条/页"></el-option>
+                   <el-option label="50条/页"></el-option>
                    </el-select>
                </el-form-item>
              </el-col>
@@ -132,26 +132,6 @@
  
   export default{
        data() {
-<<<<<<< HEAD
-                return {
-                    i:0,
-                    selectData: '',
-                    doctorName:'',
-                    select:'',
-                    data:'',
-                    dialogUpdateVisible: false, //编辑对话框的显示状态
-                    addVisble:false, //添加对话框的显示状态
-                    sels: [],//删除选中的值的显示
-                    tableData:null,
-
-                    update:{
-
-                      date:'',
-                      name:'',
-                      appointment:''
-                    }               
-            }
-=======
           return {
               i:0,
               selectData: '',
@@ -201,7 +181,6 @@
                 appointment:''
               }               
           }
->>>>>>> e2731c63fab0aec9b2756d32dc5aaf238c8ee9c2
       },
       mounted:function(){
         this.getData();
