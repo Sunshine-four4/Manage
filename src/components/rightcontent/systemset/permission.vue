@@ -150,6 +150,7 @@
 </template>
 
 <script type="ecmascript-6">
+import {api} from '../../../global/api.js'
     const perOptions = ['排班', '预约', '问诊', '收费',
                          '处方', '患者', '诊所', '统计',
                          '药品', '药品管理', '库存管理',
@@ -172,40 +173,55 @@
           edit:false,
           own:false,
           delet:false,
-          tableData3:[
-          {
-            juese:"管理员",
-            yonghu:"王管理"
-          },
-            {
-              juese:"医生",
-            yonghu:"刘利伟 何颖成 黄洪峰 黄振华 胡苏 梁景炜 李辉 刘林 刘易林 李耀明 王展鹏 温智光 林水运 杨超峰 杨楚新 杨海裕 钟南"
+          tableData3:null
+          // tableData3:[
+          // {
+          //   juese:"管理员",
+          //   yonghu:"王管理"
+          // },
+          //   {
+          //     juese:"医生",
+          //   yonghu:"刘利伟 何颖成 黄洪峰 黄振华 胡苏 梁景炜 李辉 刘林 刘易林 李耀明 王展鹏 温智光 林水运 杨超峰 杨楚新 杨海裕 钟南"
             
-          },
-          {
-            juese:"药师",
-            yonghu:"刘利伟 何颖成 黄洪峰 黄振华 胡苏 梁景炜 李辉 刘林 刘易林 李耀明 王展鹏 温智光"
+          // },
+          // {
+          //   juese:"药师",
+          //   yonghu:"刘利伟 何颖成 黄洪峰 黄振华 胡苏 梁景炜 李辉 刘林 刘易林 李耀明 王展鹏 温智光"
             
-          },
-          {
-            juese:"护士",
-            yonghu:"杨楚新 杨海裕 钟南"
+          // },
+          // {
+          //   juese:"护士",
+          //   yonghu:"杨楚新 杨海裕 钟南"
             
-          },
-          {
-            juese:"收费员",
-            yonghu:"松林 吴少萍 吴宗胜 谢凤 张玉婷 周柳莹"
+          // },
+          // {
+          //   juese:"收费员",
+          //   yonghu:"松林 吴少萍 吴宗胜 谢凤 张玉婷 周柳莹"
             
-          },
-          {
-            juese:"财务",
-            yonghu:"谢凤 张玉婷 周柳莹"
+          // },
+          // {
+          //   juese:"财务",
+          //   yonghu:"谢凤 张玉婷 周柳莹"
             
-          }
-          ]
+          // }
+          // ]
           }
     },
-      methods:{
+    mounted:function(){
+        this.getJson();
+    },
+    methods:{
+    	getJson(){ 
+            this.$http.get(api.permission).then(
+                function(response){
+                    // alert("请求成功");
+                    console.log(response.data);
+                    this.tableData3=response.data.tableData3;
+                    
+                },function(){
+                    alert("请求不成功");
+                })
+        },
          //增加角色
         add:function(){
           this.tableData3.push({juese:this.juese,yonghu:this.yonghu})

@@ -1,4 +1,5 @@
 <template>
+    <div class="login">
     <el-form ref="AccountFrom" :model="account" :rules="rules" label-position="left" label-width="0px" class="demo-ruleForm login-container">
         <h3 class="title">系统登录</h3>
         <el-form-item prop="username">
@@ -12,6 +13,7 @@
           <el-button type="primary" style="width:100%;" @click.native.prevent="handleLogin">登录</el-button>
         </el-form-item>
       </el-form>
+      </div>
 </template>
 
 <script>
@@ -65,6 +67,10 @@
     .el-button:hover{
       background-color: #20a0ff
     }
-
-    
+    .login-container .el-input{
+      width: 488px;
+    }
+    .login-container .el-input__inner{
+        width: 488px;
+    }
 </style>

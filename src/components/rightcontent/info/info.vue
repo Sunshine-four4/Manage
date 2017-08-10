@@ -1,12 +1,11 @@
 <template>
     <div class="personalInfo">
     <el-breadcrumb separator="/">
-          <el-breadcrumb-item :to="{ path: '/loginSuccess/homepage'}">首页
+          <el-breadcrumb-item :to="{ path: '/homepage'}">首页
           </el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/loginSuccess/info' }">信息</el-breadcrumb-item>
           <el-breadcrumb-item>个人信息</el-breadcrumb-item>
         </el-breadcrumb>
-        <!-- 左侧上传图片 -->
+  <!-- 左侧上传图片 -->
         <div class="left" >
 
             <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove"> <i class="el-icon-plus"></i>
@@ -20,7 +19,7 @@
         
         <div class="right">
           <!-- 右侧-个人信息 -->
-          <div class="right1" >
+          <el-col :span="24" class="right1" >
               <h3>个人信息 <el-button size="small"  @click="edit1()"  icon="edit" style="float:right">编辑</el-button>
               </h3>
   <!--个人信息编辑后-->
@@ -67,37 +66,36 @@
                   </el-dialog>
               </div>
   <!-- 个人信息编辑前 -->
-              <div class="user-info-text" >
+              <el-col :span="24" class="user-info-text" >
                   <el-form  :model="personalInfo" >
-                        <el-form-item label="姓名：" >
+                       <el-form-item label="姓名：" >
                           {{ personalInfo.PerName }}
                         </el-form-item>
 
                         <el-form-item label="性别：" >
                           {{ personalInfo.sex }}
                         </el-form-item>
-
+                      
                         <el-form-item label="年龄：" >
                           {{ personalInfo.age }}
                         </el-form-item>
-
+                      
                         <el-form-item label="所属科室：" >
                           {{ value }}
                         </el-form-item>
-                        
+                      
                         <el-form-item label="职称：">
                           {{ personalInfo.subtitle }}
                         </el-form-item>
 
                         <el-form-item label="电话：">
                           {{ personalInfo.phone }}
-                        </el-form-item>
-    
+                        </el-form-item>      
                   </el-form>
-              </div>
-          </div>
+              </el-col>
+          </el-col>
           <!-- 右侧-账户信息 -->
-          <div class="right2" >
+          <el-col :span="24" class="right2" >
                 <h3>账户信息 <el-button size="small"  @click="edit2()"  icon="edit" style="float:right">编辑</el-button>
                 </h3>
   <!--账户信息编辑后-->
@@ -134,9 +132,9 @@
                        
                   </el-form>
               </div>
-          </div>
+          </el-col>
           <!-- 右侧-医生信息 -->
-          <div class="right3" >
+          <el-col :span="24" class="right3" >
                 <h3>医生信息 <el-button size="small"  @click="edit3()"  icon="edit" style="float:right">编辑</el-button>
                 </h3>
   <!--医生信息编辑后-->
@@ -196,11 +194,13 @@
                        
                   </el-form>
               </div>
-          </div>
+          </el-col>
         </div>
     </div>
 </template>
 <script type="ecmascript-6">
+import {api} from '../../../global/api.js'
+
 export default {  
  data() {
       return {
@@ -252,7 +252,8 @@ export default {
     methods:{
       // 获取personalInfo.json
         getData(){ 
-                    this.$http.get('../../../../static/dataJson/personalInfo.json').then(
+          alert(1)
+                    this.$http.get(api.personalInfo).then(
                         function(response){
                             // alert("请求成功");
                             // console.log(response.data);
@@ -353,10 +354,11 @@ export default {
     box-shadow: 4px 4px 2px #E7E7E7;
 }
 .personalInfo .right1  .user-info-text .el-form-item{
-   /* width: 50%;
-    float: left;*/
+    width: 50%;
+    float: left;
 
 }
+
 .personalInfo .right2{
     box-shadow: 4px 4px 2px #E7E7E7;
     padding-top: 10px;

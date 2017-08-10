@@ -56,6 +56,8 @@
 
 <script type="esmascript">
  import echarts from 'echarts'
+ import {api} from '../../../global/api.js'
+ 
 	export default {
 		 data() {
       return {
@@ -132,7 +134,7 @@
     methods:{
         //获取dataJson数据
         getJson(){ 
-                    this.$http.get('static/dataJson/homepage.json').then(
+                    this.$http.get(api.homepage).then(
                         function(response){
                             // alert("请求成功");
                             console.log(response.data);

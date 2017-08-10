@@ -209,6 +209,7 @@
 </template>
 
 <script type="ecmascript-6">
+import {api} from '../../../global/api.js'
 
 export default {
 	data(){
@@ -229,7 +230,8 @@ export default {
       methods: {
           // 获取schedul.json
           getData(){ 
-                    this.$http.get('../../../../static/dataJson/book.json').then(
+          	console.log("aaaaaaa",api);
+                    this.$http.get(api.book).then(
                         function(response){
                             // alert("请求成功");
                             console.log(response.data);
@@ -279,6 +281,10 @@ export default {
 		background-color: #1fd083;
 		border-radius: 5px;
 	}
+	.bookContent{
+		padding-bottom: 30%;
+	}
+	
 	.bookContentLeft{
 		background: #fff;
 		/*border: 1px solid #d1dbe5;*/

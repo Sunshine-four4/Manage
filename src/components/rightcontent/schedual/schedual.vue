@@ -129,7 +129,8 @@
 </template>
 
 <script type="ecmascript-6">
- 
+  import {api} from '../../../global/api.js'
+
   export default{
        data() {
           return {
@@ -186,7 +187,7 @@
       methods: {
           // 获取schedul.json
           getData(){ 
-                    this.$http.get('../../../../static/dataJson/schedual.json').then(
+                    this.$http.get(api.schedual).then(
                         function(response){
                             // alert("请求成功");
                             console.log(response.data);

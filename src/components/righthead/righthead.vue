@@ -7,7 +7,7 @@
 			<el-dropdown split-button type="primary">
 				<div class="avatar-wrapper">
                     <span class="user-name">Nick</span>
-                    <img class="user-avatar" width="30px" :src="Koala">
+                    <img class="user-avatar" width="30px" src="../../assets/Koala.jpg">
                 </div>
 			  <el-dropdown-menu slot="dropdown">
 			    <el-dropdown-item><el-button type="text" @click="open">首页</el-button></el-dropdown-item>
@@ -23,11 +23,11 @@
 <script type="esmascript">
 
 	export default {
-		data() {
-		    return {
-		    	 Koala:"../static/Koala.jpg"
-		    }
-		},
+		// data() {
+		//     // return {
+		//     // 	 Koala:"../../static/Koala.jpg"
+		//     // }
+		// },
 		methods: {
 		    open() {
 		       this.$router.push('/loginSuccess/homepage')
