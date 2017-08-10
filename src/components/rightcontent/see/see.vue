@@ -65,27 +65,6 @@
     				    <el-tab-pane label="01 挂号费" name="one">11111111111</el-tab-pane>
     			    	<el-tab-pane label="02 西药" name="two">
     				    	<el-table :data="tableData1" style="width: 100%" label-width="120">
-		                  	  <!-- <el-table-column label="名称(规格)">
-		                        <el-input v-model="tableData1.guige"></el-input>
-		                      </el-table-column>
-		                      <el-table-column label="用量/次">
-		                        <el-input v-model="tableData1.yongliang"></el-input>
-		                      </el-table-column>
-		                      <el-table-column label="频次">
-		                        <el-input v-model="tableData1.pinci"></el-input>
-		                      </el-table-column>
-		                      <el-table-column label="天数">
-		                        <el-input v-model="tableData1.tianshu"></el-input>
-		                      </el-table-column>
-		                      <el-table-column label="发药单位">
-		                        <el-input v-model="tableData1.fayao"></el-input>
-		                      </el-table-column>
-		                      <el-table-column label="单价(元)">
-		                        <el-input v-model="tableData1.danjia"></el-input>
-		                      </el-table-column>
-		                      <el-table-column label="合计(元)">
-		                        <el-input v-model="tableData1.heji"></el-input>
-		                      </el-table-column> -->
     					      <el-table-column prop="guige" label="名称(规格)">
     					      </el-table-column>
     					      <el-table-column prop="yongliang" label="用量/次">
@@ -113,26 +92,19 @@
                   <el-tab-pane label="01 挂号费" name="one">11111111111</el-tab-pane>
                   <el-tab-pane label="02 西药" name="two">
                     <el-table :model="tableData1" style="width: 100%" label-width="120">
-                      <el-table-column label="名称(规格)">
-                        <!-- <el-input v-model="tableData1.guige"></el-input> -->{{ tableData1.guige }}
+                      <el-table-column prop="guige" label="名称(规格)">
                       </el-table-column>
-                      <el-table-column label="用量/次">
-                        <!-- <el-input v-model="tableData1.yongliang"></el-input> -->{{tableData1.yongliang}}
+                      <el-table-column prop="yongliang" label="用量/次">
                       </el-table-column>
-                      <el-table-column label="频次">
-                        <!-- <el-input v-model="tableData1.pinci"></el-input> -->{{tableData1.pinci}}
+                      <el-table-column prop="pinci" label="频次">
                       </el-table-column>
-                      <el-table-column label="天数">
-                        <!-- <el-input v-model="tableData1.tianshu"></el-input> -->{{tableData1.tianshu}}
+                      <el-table-column prop="tianshu" label="天数">
                       </el-table-column>
-                      <el-table-column label="发药单位">
-                        <!-- <el-input v-model="tableData1.fayao"></el-input> -->{{tableData1.fayao}}
+                      <el-table-column prop="fayao" label="发药单位">
                       </el-table-column>
-                      <el-table-column label="单价(元)">
-                        <!-- <el-input v-model="tableData1.danjia"></el-input> -->{{tableData1.danjia}}
+                      <el-table-column prop="danjia" label="单价(元)">
                       </el-table-column>
-                      <el-table-column label="合计(元)">
-                        <!-- <el-input v-model="tableData1.heji"></el-input> -->{{tableData1.heji}}
+                      <el-table-column prop="heji" label="合计(元)">
                       </el-table-column>
                     </el-table>
                   </el-tab-pane>
@@ -163,7 +135,7 @@
 				  </el-form-item>
 				</el-form>
 
-        		<el-form ref="form" class="user-basic-info" label-width="80px">
+        		<el-form ref="form" :model="form" class="user-basic-info" label-width="80px">
                   <el-form-item label="性别：" style="display: inline-block;">
                   	<span v-html="sex"></span>
                   </el-form-item>
@@ -342,7 +314,6 @@
       	remarks:'<b>各项指标良好！</b>',
         editable:false,
         Koala:"../static/Koala.jpg",
-        formInline:'',
         personalInfo:{
         	height:"175",
         	weight:"50kg",
@@ -467,7 +438,7 @@
     resetForm() {
         var vm = this;
         vm.editable = false;
-        vm.personalInfo = JSON.parse( JSON.stringify(vm.personalInfo_init) ) ;
+        //vm.personalInfo = JSON.parse( JSON.stringify(vm.personalInfo_init) ) ;
     },
     //tab选项卡
      handleClick(tab, event) {
@@ -484,9 +455,8 @@
 	  	float:right;
       background: #fff;
 	}
-  .info-top{
-    margin-top: 10px;
-    line-height: 60px;
+  .el-breadcrumb{
+    padding: 10px 0 20px 0;
   }
   .info-top li{
     margin-right: 10px;
@@ -514,9 +484,9 @@
     display: inline-block;
   }
   .returnPremiumform img{
-            max-width: 30px;
-            max-height: 30px;
-            border-radius: 50%;
+      max-width: 30px;
+      max-height: 30px;
+      border-radius: 50%;
   }
   .returnPremiumform .el-dialog--small {
     width: 65%;
@@ -582,9 +552,9 @@
 		margin-bottom: 10px;
 	}
 	.past-case li{
-		margin: 20px 40px;
+		margin: 10px;
 		list-style: none;
-	    display: inline-block;
+	  display: inline-block;
 	}
 	.past-case .el-date-editor{
 		margin: 2% 4%;

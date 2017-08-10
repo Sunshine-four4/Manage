@@ -54,7 +54,7 @@
         margin: 0 auto;
         margin-top: 220px;
     }
-
+    
     .title {
       margin: 0px auto 40px auto;
       text-align: center;
@@ -65,4 +65,6 @@
     .el-button:hover{
       background-color: #20a0ff
     }
+
+    
 </style>

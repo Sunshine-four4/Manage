@@ -279,8 +279,7 @@
   	/*width:83.75%;*/
   	float: left;
     width:82%;
-    padding:1% 2% 1%;
-
+    padding:0 2% 30%;
     background:white; 
     position:relative;
     

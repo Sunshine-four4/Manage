@@ -8,6 +8,7 @@ import 'element-ui/lib/theme-default/index.css';
 import homepage from '@/components/rightcontent/homepage/homepage.vue'
 import schedual from '@/components/rightcontent/schedual/schedual.vue'
 import book from '@/components/rightcontent/book/book.vue'
+import bookDetail from '@/components/rightcontent/book/bookDetail.vue'
 import see from '@/components/rightcontent/see/see.vue'
 import department from '@/components/rightcontent/department/department.vue'
 import info from '@/components/rightcontent/info/info.vue'
@@ -36,6 +37,7 @@ const routes = [
 	       { path:'department',component:department},
 	       { path: 'permission', component: permission },
 	       { path: 'log', component: log },
+	       { path: 'bookDetail', component: bookDetail },
 	       // 使得已进入主页面，就会默认出现首页内容
 	       { path: '/', component: homepage },
 		]

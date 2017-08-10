@@ -1,8 +1,10 @@
  <template>
 	<div class="homepage">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item>首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/loginSuccess/homepage'}">首页
+        </el-breadcrumb-item>
       </el-breadcrumb>
+
 	    <el-row :gutter="20">
 		    <el-col :span="16">
 			    <el-table :data="tableData1" >
@@ -11,22 +13,27 @@
 					<el-table-column prop="doctor"></el-table-column>
 					<el-table-column prop="caozuo">
 					    <template scope="scope">
-					    	<el-button size="small" type="text">详情</el-button> 
+					    	<router-link to="/loginSuccess/book">
+                  <el-button size="small" type="text">详情</el-button>
+                </router-link>
 					    </template>    
 					</el-table-column>
 				</el-table>
 		    </el-col>	
 		    <el-col :span="8"style="float:right;">	
 	  		    <el-table :data="tableData2" style="height:280px">
-				    <el-table-column prop="date" label="今日排班" ></el-table-column>
+				    <el-table-column prop="date" label="今日排班" >
+              
+            </el-table-column>
 				    <el-table-column prop="doctor"></el-table-column>
 	  		    </el-table>
 	  		</el-col>
         </el-row>
         <el-row :gutter="20" >
-	        <el-col :span="16" style="border:solid 1px rgb(223, 230, 236);"> 
-            <el-col :span="24" >
-            <div class="mon">月度统计(过去30天)</div></el-col>
+	        <el-col :span="16" style="border:solid 1px rgb(223, 230, 236);width:64.9%;margin-left:10px"> 
+            <el-col :span="26" >
+            <div class="mon">月度统计(过去30天)</div>
+            </el-col>
 			    <el-row :gutter="200">
 			            
 			              <el-col :span="10"style="border-right:solid 1px #eee;">
@@ -54,72 +61,93 @@
       return {
       	chartColumn1: null,
       	chartColumn2: null,
-        tableData1: [{
-          date: '08:00~09:00',
-          name: '李女士,1351235678',
-          doctor: '预约：王医生'
-        }, {
-          date: '08:00~09:00',
-          name: '李女士,1351235678',
-          doctor: '预约：王医生'
-        }, {
-          date: '08:00~09:00',
-          name: '李女士,1351235678',
-          doctor: '预约：王医生'
-        },{
-          date: '08:00~09:00',
-          name: '李女士,1351235678',
-          doctor: '预约：王医生'
-        },{
-          date: '08:00~09:00',
-          name: '李女士,1351235678',
-          doctor: '预约：王医生'
-        },{
-          date: '08:00~09:00',
-          name: '李女士,1351235678',
-          doctor: '预约：王医生'
-        }
-        ],
+        tableData1:null,
+        tableData2:null,
+        tableData4:null
+       //  tableData1: [{
+       //    date: '08:00~09:00',
+       //    name: '李女士,1351235678',
+       //    doctor: '预约：王医生'
+       //  }, {
+       //    date: '08:00~09:00',
+       //    name: '李女士,1351235678',
+       //    doctor: '预约：王医生'
+       //  }, {
+       //    date: '08:00~09:00',
+       //    name: '李女士,1351235678',
+       //    doctor: '预约：王医生'
+       //  },{
+       //    date: '08:00~09:00',
+       //    name: '李女士,1351235678',
+       //    doctor: '预约：王医生'
+       //  },{
+       //    date: '08:00~09:00',
+       //    name: '李女士,1351235678',
+       //    doctor: '预约：王医生'
+       //  },{
+       //    date: '08:00~09:00',
+       //    name: '李女士,1351235678',
+       //    doctor: '预约：王医生'
+       //  }
+       //  ],
         
-        tableData2:[{
-          date: '09:00~11:00',
-          doctor:'王医生'
-      	},{
-          date: '09:00~11:00',
-          doctor:'王医生'
-      	},{
-          date: '09:00~11:00',
-          doctor:'王医生'
-      	},{
-          date: '09:00~11:00',
-          doctor:'王医生'
-      	}
+       //  tableData2:[{
+       //    date: '09:00~11:00',
+       //    doctor:'王医生'
+      	// },{
+       //    date: '09:00~11:00',
+       //    doctor:'王医生'
+      	// },{
+       //    date: '09:00~11:00',
+       //    doctor:'王医生'
+      	// },{
+       //    date: '09:00~11:00',
+       //    doctor:'王医生'
+      	// }
 
-      	],
-        tableData4:[{
-          date: '12:00:03',
-          opor:'王医生修改了排班'
-      	},{
-          date: '12:30:43',
-          opor:'王医生修改了排班'
-      	},{
-          date: '12:40:03',
-          opor:'欧医生修改了排班'
-      	},{
-          date: '12:00:23',
-          opor:'刘医生修改了排班'
-      	},{
-          date: '12:50:00',
-          opor:'陈医生修改了排班'
-      	},{
-          date: '13:00:03',
-          opor:'刘护士登录了系统'
-      	}
+      	// ],
+       //  tableData4:[{
+       //    date: '12:00:03',
+       //    opor:'王医生修改了排班'
+      	// },{
+       //    date: '12:30:43',
+       //    opor:'王医生修改了排班'
+      	// },{
+       //    date: '12:40:03',
+       //    opor:'欧医生修改了排班'
+      	// },{
+       //    date: '12:00:23',
+       //    opor:'刘医生修改了排班'
+      	// },{
+       //    date: '12:50:00',
+       //    opor:'陈医生修改了排班'
+      	// },{
+       //    date: '13:00:03',
+       //    opor:'刘护士登录了系统'
+      	// }
 
-      	]      
+      	// ]      
       }
-    },
+    }, 
+    methods:{
+        //获取dataJson数据
+        getJson(){ 
+                    this.$http.get('static/dataJson/homepage.json').then(
+                        function(response){
+                            // alert("请求成功");
+                            console.log(response.data);
+                            this.tableData1=response.data.tableData1;
+                            this.tableData2=response.data.tableData2;
+                            this.tableData4=response.data.tableData4;
+                            
+                        },function(){
+                            alert("请求不成功");
+                        })
+
+                    }
+                },   
      mounted: function () {
+           this.getJson();
       	 	 var _this = this;
       	 	 this.chartColumn1 = echarts.init(document.getElementById('chartColumn1'));
       	 	 this.chartColumn2= echarts.init(document.getElementById('chartColumn2'));
@@ -177,12 +205,17 @@
 </script>
 
 <style rel="stylesheet">
-      	 .homepage{
+        .el-breadcrumb{
+          padding: 10px 0 20px 0;
+        }
+
+      	.homepage{
         	float: left;
           width:82%;
           padding:1% 2% 1%;
           background:white; 
         }  
+        
         .homepage .el-row{
         	padding-bottom: 20px;
         }

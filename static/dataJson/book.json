@@ -4,29 +4,17 @@
 		{
 			"visitTime":"09:00~10:00",
 			"visitPeople":"李春华",
-			"visitState":"就诊中",
-			"visitSign":"签到",
-			"visitMeasurment":"测量",
-			"visitDetail":"详情",
-			"visitDelect":"取消"
+			"visitState":"就诊中"
 		},
 		{
 			"visitTime":"09:00~10:00",
 			"visitPeople":"李春华",
-			"visitState":"就诊中",
-			"visitSign":"签到",
-			"visitMeasurment":"测量",
-			"visitDetail":"详情",
-			"visitDelect":"取消"
+			"visitState":"未就诊"
 		},
 		{
 			"visitTime":"09:00~10:00",
 			"visitPeople":"李春华",
-			"visitState":"就诊中",
-			"visitSign":"签到",
-			"visitMeasurment":"测量",
-			"visitDetail":"详情",
-			"visitDelect":"取消"
+			"visitState":"就诊中"
 		}
 			
 	],

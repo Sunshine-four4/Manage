@@ -7,7 +7,7 @@
           <el-breadcrumb-item>排班</el-breadcrumb-item>
         </el-breadcrumb>
 
-        <div exampleform-row style="margin-top:10px">
+        <div exampleform-row style="margin-top:-10px">
             <el-input v-model="doctorName" placeholder="医生姓名"  style="width: 200px;"></el-input>
 
             <el-date-picker v-model="selectData" type="date" placeholder="选择日期" >
@@ -141,9 +141,7 @@
               dialogUpdateVisible: false, //编辑对话框的显示状态
               addVisble:false, //添加对话框的显示状态
               sels: [],//删除选中的值的显示
-
-              tableData: [{
-                
+              tableData: [{   
                 date: '2016-05-02',
                 name: '王医生',
                 appointment: '9.00-11.00'
@@ -279,7 +277,9 @@
 </script>
 
 <style rel="stylesheet">
-
+    .el-breadcrumb{
+      padding: 10px 0 20px 0;
+    }
     .scheduling .el-input__inner{
       border-radius: 0!important;
       height:28px!important;
@@ -294,9 +294,18 @@
      .scheduling{
       float:left;
       width:82%;
-      padding:1% 2% 15%;
+      padding:1% 2% 30%;
       background:#fff;
       margin-top: -1px;
     }
-   
+    
+    .scheduling .el-input{
+      margin-right: 12px;
+    }
+
+    .scheduling .el-button{
+      margin-top: 8px;
+      margin-left: 12px;
+  }
+
 </style>
