@@ -1,8 +1,11 @@
  <template>
+ 	<!-- 右侧头部 -->
 	<div class="righthead">
+		<!-- 标题 -->
 		<div class="lefttag">
 			医院后台管理系统
 		</div>
+		<!-- 右侧的头像及下拉导航 -->
 		<div class="rightUser">
 			<el-dropdown split-button type="primary">
 				<div class="avatar-wrapper">
@@ -10,7 +13,9 @@
                     <img class="user-avatar" width="30px" src="../../assets/Koala.jpg">
                 </div>
 			  <el-dropdown-menu slot="dropdown">
-			    <el-dropdown-item><el-button type="text" @click="open">首页</el-button></el-dropdown-item>
+			    <el-dropdown-item>
+			    	<el-button type="text" @click="open">首页</el-button>
+			    </el-dropdown-item>
 			    <el-dropdown-item>切换主题</el-dropdown-item>
 			    <el-dropdown-item>修改密码</el-dropdown-item>
 			    <el-dropdown-item><el-button type="text" @click="exit">退出登录</el-button></el-dropdown-item>
@@ -23,11 +28,6 @@
 <script type="esmascript">
 
 	export default {
-		// data() {
-		//     // return {
-		//     // 	 Koala:"../../static/Koala.jpg"
-		//     // }
-		// },
 		methods: {
 		    open() {
 		       this.$router.push('/loginSuccess/homepage')

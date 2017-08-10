@@ -25,6 +25,7 @@ Vue.config.productionTip = false
 
 
 const routes = [
+	
 	{path:'/',redirect:'/login'},
 	{path: '/login',component: login},
 	{path: '/loginSuccess',component: loginSuccess,

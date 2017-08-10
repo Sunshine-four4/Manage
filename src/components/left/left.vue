@@ -1,6 +1,6 @@
 <template>
+	<!-- 左侧导航栏 -->
  	<div class="left">
- 	
 		<el-menu default-active="1-4-1" class="el-menu-vertical-demo">
 			<router-link to="/loginSuccess/homepage">
 		 		<el-menu-item index="1">
@@ -74,7 +74,7 @@
 	    background-color:#eee;
 	}
 	.left li{
-		 background:#324D56 !important;
+		background:#324D56 !important;
 	}
 	.left .el-menu li a,.left .el-menu span,.left .el-menu i{
 		

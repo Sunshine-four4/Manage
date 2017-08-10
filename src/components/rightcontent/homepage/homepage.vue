@@ -1,10 +1,12 @@
  <template>
+  <!-- 首页 -->
 	<div class="homepage">
+      <!-- 面包屑 -->
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/loginSuccess/homepage'}">首页
         </el-breadcrumb-item>
       </el-breadcrumb>
-
+  
 	    <el-row :gutter="20">
 		    <el-col :span="16">
 			    <el-table :data="tableData1" >
@@ -21,40 +23,39 @@
 				</el-table>
 		    </el-col>	
 		    <el-col :span="8"style="float:right;">	
-	  		    <el-table :data="tableData2" style="height:280px">
-				    <el-table-column prop="date" label="今日排班" >
-              
+	  		  <el-table :data="tableData2" style="height:280px">
+  				  <el-table-column prop="date" label="今日排班" >    
             </el-table-column>
-				    <el-table-column prop="doctor"></el-table-column>
-	  		    </el-table>
+  				  <el-table-column prop="doctor"></el-table-column>
+	  		  </el-table>
 	  		</el-col>
-        </el-row>
-        <el-row :gutter="20" >
-	        <el-col :span="16" style="border:solid 1px rgb(223, 230, 236);width:64.9%;margin-left:10px"> 
+      </el-row>
+      <el-row :gutter="20" >
+	      <el-col :span="16" style="border:solid 1px rgb(223, 230, 236);width:64.9%;margin-left:10px"> 
             <el-col :span="26" >
-            <div class="mon">月度统计(过去30天)</div>
+              <div class="mon">月度统计(过去30天)</div>
             </el-col>
-			    <el-row :gutter="200">
-			            
-			              <el-col :span="10"style="border-right:solid 1px #eee;">
-                        <div  id="chartColumn1" style="width:100%; height:400px;"></div>
-                    </el-col>
-                    <el-col :span="10">
-                        <div  id="chartColumn2" style="width:100%; height:400px;"></div>
-                    </el-col>
+			      <el-row :gutter="200">
+			        <el-col :span="10"style="border-right:solid 1px #eee;">
+                  <div id="chartColumn1" style="width:100%; height:400px;"></div>
+              </el-col>
+              <el-col :span="10">
+                  <div  id="chartColumn2" style="width:100%; height:400px;"></div>
+              </el-col>
           </el-row>   
-		      </el-col>	
+		    </el-col>	
 		    <el-col :span="8"style="float:right;">	
 	  		    <el-table :data="tableData4" style="height:460px;">
 				    <el-table-column prop="date" label="最新动态" ></el-table-column>
 				    <el-table-column prop="opor"></el-table-column>
 	  		    </el-table>
 	  		</el-col>
-        </el-row>
+      </el-row>
 	</div>
 </template>
 
 <script type="esmascript">
+
  import echarts from 'echarts'
  import {api} from '../../../global/api.js'
  
@@ -66,88 +67,25 @@
         tableData1:null,
         tableData2:null,
         tableData4:null
-       //  tableData1: [{
-       //    date: '08:00~09:00',
-       //    name: '李女士,1351235678',
-       //    doctor: '预约：王医生'
-       //  }, {
-       //    date: '08:00~09:00',
-       //    name: '李女士,1351235678',
-       //    doctor: '预约：王医生'
-       //  }, {
-       //    date: '08:00~09:00',
-       //    name: '李女士,1351235678',
-       //    doctor: '预约：王医生'
-       //  },{
-       //    date: '08:00~09:00',
-       //    name: '李女士,1351235678',
-       //    doctor: '预约：王医生'
-       //  },{
-       //    date: '08:00~09:00',
-       //    name: '李女士,1351235678',
-       //    doctor: '预约：王医生'
-       //  },{
-       //    date: '08:00~09:00',
-       //    name: '李女士,1351235678',
-       //    doctor: '预约：王医生'
-       //  }
-       //  ],
-        
-       //  tableData2:[{
-       //    date: '09:00~11:00',
-       //    doctor:'王医生'
-      	// },{
-       //    date: '09:00~11:00',
-       //    doctor:'王医生'
-      	// },{
-       //    date: '09:00~11:00',
-       //    doctor:'王医生'
-      	// },{
-       //    date: '09:00~11:00',
-       //    doctor:'王医生'
-      	// }
-
-      	// ],
-       //  tableData4:[{
-       //    date: '12:00:03',
-       //    opor:'王医生修改了排班'
-      	// },{
-       //    date: '12:30:43',
-       //    opor:'王医生修改了排班'
-      	// },{
-       //    date: '12:40:03',
-       //    opor:'欧医生修改了排班'
-      	// },{
-       //    date: '12:00:23',
-       //    opor:'刘医生修改了排班'
-      	// },{
-       //    date: '12:50:00',
-       //    opor:'陈医生修改了排班'
-      	// },{
-       //    date: '13:00:03',
-       //    opor:'刘护士登录了系统'
-      	// }
-
-      	// ]      
       }
     }, 
     methods:{
         //获取dataJson数据
         getJson(){ 
-                    this.$http.get(api.homepage).then(
-                        function(response){
-                            // alert("请求成功");
-                            console.log(response.data);
-                            this.tableData1=response.data.tableData1;
-                            this.tableData2=response.data.tableData2;
-                            this.tableData4=response.data.tableData4;
-                            
-                        },function(){
-                            alert("请求不成功");
-                        })
-
-                    }
-                },   
+          this.$http.get(api.homepage).then(
+            function(response){
+                // alert("请求成功");
+                console.log(response.data);
+                this.tableData1=response.data.tableData1;
+                this.tableData2=response.data.tableData2;
+                this.tableData4=response.data.tableData4;
+                
+            },function(){
+                alert("请求不成功");
+            }
+          )
+        }
+    },   
      mounted: function () {
            this.getJson();
       	 	 var _this = this;

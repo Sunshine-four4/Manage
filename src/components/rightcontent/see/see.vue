@@ -264,13 +264,13 @@
       	  		    			<li><span>2017-04-25 11:55:40</span></li>
       	  		    			<li>
       	  		    				<i class="el-icon-document"></i>
-      				  		    	<span slot="title">
+      				  		    	<span slot="title" class="record">
       				  			 		<router-link to="/loginSuccess/see">详情</router-link>
       				  			 	</span>
       			  		    	</li>
       	  		    			<li>
       	  		    				<i class="el-icon-document"></i>
-      				  			    <span slot="title">
+      				  			    <span slot="title" class="record">
       				  					<router-link to="/loginSuccess/see">复制病例</router-link>
       				  				</span>
       	  		    			</li>
@@ -281,13 +281,13 @@
       	  		    			<li><span>2017-04-25 11:55:40</span></li>
       	  		    			<li>
       	  		    				<i class="el-icon-document"></i>
-      				  		    	<span slot="title">
+      				  		    	<span slot="title" class="record">
       				  			 		<router-link to="/loginSuccess/see">详情</router-link>
       				  			 	</span>
       			  		    	</li>
       	  		    			<li>
       	  		    				<i class="el-icon-document"></i>
-      				  			    <span slot="title">
+      				  			    <span slot="title" class="record">
       				  					<router-link to="/homepage">复制病例</router-link>
       				  				</span>
       	  		    			</li>
@@ -559,4 +559,9 @@
 	.past-case .el-date-editor{
 		margin: 2% 4%;
 	}
+
+  .record a{
+    color:blue;
+    text-decoration: none
+  }
  </style>

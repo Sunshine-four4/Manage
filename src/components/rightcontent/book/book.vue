@@ -38,26 +38,31 @@
 						      </el-table-column>
 						      <el-table-column prop="visitSign">
 						      	<template scope="scope">
-							        <el-button @click="handleClick" type="text" icon="time" size="small">签到</el-button>
+							        <el-button @click="qianDao(scope.$index,scope)" type="text" icon="time" size="small">签到</el-button>
 						        </template>
 						      </el-table-column>
 						      <el-table-column prop="visitMeasurment">
 						      	<template scope="scope">
-							        <el-button @click="handleClick" type="text" icon="edit" size="small">测量</el-button>
+							        <el-button  @click="ceLiang(scope.$index,scope)" type="text" icon="edit" size="small">测量</el-button>
 						        </template>
 						      </el-table-column>
 						      <el-table-column prop="visitDetail">
 						      	<template scope="scope">
-						      	   <router-link to="/loginSuccess/bookDetail">
-							        <el-button @click="handleClick" type="text" icon="document" size="small">详情</el-button>
-							        </router-link>
+							        <el-button @click="handleEdit(scope.row)" type="text" icon="document" size="small">详情</el-button>
 						        </template>
 						      </el-table-column>
 						      <el-table-column prop="visitDelect">
 						      	<template scope="scope">
-							        <el-button type="text" icon="close" size="small">取消</el-button>
+							        <el-button type="text" icon="close" size="small" @click="deleteRow(scope.$index,visitInfos)">取消</el-button>
 						        </template>
 						      </el-table-column>
+						    </el-table>
+						    <el-dialog title="签到" v-model="dialogUpdateVisible1"  >
+						        签到信息
+						    </el-dialog>
+						    <el-dialog title="测量" v-model="dialogUpdateVisible2"  >
+						        测量信息
+						    </el-dialog>
 						    </el-table>
 					  	</div>
 					  </el-tab-pane>
@@ -214,6 +219,9 @@ import {api} from '../../../global/api.js'
 export default {
 	data(){
 		return {
+			i:0,
+			dialogUpdateVisible1: false,
+			dialogUpdateVisible2: false,
 			roomtype1:'',
 			roomtype2:'',
 			Doctors:'',
@@ -228,35 +236,50 @@ export default {
         this.getData();
       },
       methods: {
-          // 获取schedul.json
-          getData(){ 
+        // 获取schedul.json
+        getData(){ 
           	console.log("aaaaaaa",api);
-                    this.$http.get(api.book).then(
-                        function(response){
-                            // alert("请求成功");
-                            console.log(response.data);
-                            this.visitInfos=response.data.visitInfos;
-                            this.appointmentData=response.data.appointmentData;
-                            this.timeData=response.data.timeData;
-                            
-                        },function(){
-                            alert("请求不成功");
-                        })
+            this.$http.get(api.book).then(
+                function(response){
+                    // alert("请求成功");
+                    console.log(response.data);
+                    this.visitInfos=response.data.visitInfos;
+                    this.appointmentData=response.data.appointmentData;
+                    this.timeData=response.data.timeData;
+                    
+                },function(){
+                    alert("请求不成功");
+                }
+            )
+        },
+        //取消 
+        deleteClick(){
+        },
 
-             },
-            //取消 
-            deleteClick(){
-            },
-
-           //分页         
-           handleSizeChange(val) {
-		        console.log(`每页 ${val} 条`);
-		    },
-	       handleCurrentChange(val) {
-        		console.log(`当前页: ${val}`);
-	        },
+       //分页         
+       handleSizeChange(val) {
+	        console.log(`每页 ${val} 条`);
+	    },
+       handleCurrentChange(val) {
+    		console.log(`当前页: ${val}`);
+        },
+        //签到
+        qianDao(index, rows){
+          	console.log(rows);
+	        this.i=index;//获取数组下标
+	        this.dialogUpdateVisible1=true;//编辑状态为真，显示弹框
+      	},
+      //测量
+        ceLiang(index, rows){
+	        console.log(rows);
+	        this.i=index;//获取数组下标
+	        this.dialogUpdateVisible2=true;//编辑状态为真，显示弹框
+      	},
+        // 单个删除
+	    deleteRow(index, rows){
+	        rows.splice(index, 1)
+	    },
     }    
-
 }
 </script>
 
@@ -268,9 +291,6 @@ export default {
       	background: #f6f6f7;
 	}
 
-	/*.el-breadcrumb{
-      padding: 10px 0 20px 0;
-    }*/
 	.searchmovie .bookContent .el-tabs--border-card{
 		background: #fff;
 		border: none;

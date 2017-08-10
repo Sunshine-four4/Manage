@@ -1,17 +1,14 @@
 <template>
+    <!-- 部门信息 -->
     <div class="department">
+      <!-- 面包屑 -->
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/loginSuccess/homepage' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item :to="{ path: '/loginSuccess/info' }">信息</el-breadcrumb-item>
         <el-breadcrumb-item>科室信息</el-breadcrumb-item>
       </el-breadcrumb>
       <div exampleform-row>
-        <!-- <el-select v-model="select" slot="prepend" placeholder="科室类别" style="width: 130px">
-          <el-option v-for="item in typeOptions" :key="item.key" :label="item.display_name" :value="item.key">
-          </el-option>
-        </el-select> -->
         <el-input v-model="tableData.field1" placeholder="科室类别"></el-input>
-        
         <el-button type="primary" icon="search" :value="value">搜索</el-button>
         <el-button type="primary" icon="edit" @click="dialogVisible = true">添加</el-button>
         <el-dialog title="提示" :visible.sync="dialogVisible" size="tiny" :before-close="handleClose">
@@ -25,14 +22,14 @@
             </el-form-item> 
           </el-form> 
         </el-dialog>        
-        <el-button type="primary" icon="delete"  @click="removeSelected" :disabled="this.tableData.length === 0">批量删除</el-button>
+        <el-button type="primary" icon="delete"  @click="removeSelected" :disabled="this.multipleSelection.length === 0">批量删除</el-button>
         <el-button type="primary" icon="document"  @click="export2Excel">导出</el-button>
       </div>
 
     <!-- 表格 -->
-      <el-table  v-loading="listLoading" ref="multipleTable" :data="tableData" border tooltip-effect="dark" style="width: 100%;margin-top:20px;margin-bottom:20px" @selection-change="handleSelectionChange" :label="tableData.num">
+      <el-table  v-loading="listLoading" ref="multipleTable" :data="tableData" border tooltip-effect="dark" style="width: 100%;margin-top:20px;margin-bottom:20px" @selection-change="SelectionChange"  >
 
-      <el-table-column type="selection" width="55" v-model="multipleSelection" @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55" @selection-change="SelectionChange">
       </el-table-column>
       
       <el-table-column  label="序号" show-overflow-tooltip>
@@ -53,7 +50,6 @@
           <el-button size="small" @click="edit(scope.$index,scope)">编辑</el-button>    
           <!-- 编辑修改科室类型-->
            <el-dialog title="修改科室类型" v-model="dialogUpdateVisible">
-        
                <el-form :model="update" :rules="rule" ref="update" label-width="100px">
                    <el-form-item label="类型名称" prop="field1">
                      <el-input v-model="update.field1"></el-input>
@@ -70,7 +66,6 @@
         </template>
       </el-table-column>
     </el-table>
-
 
     <!-- 分页 -->
     <el-form  > 
@@ -98,20 +93,12 @@
           select:'',
           listLoading:false,
           multipleSelection:[],
-          value:'',
-          // typeOptions:[
-          //   { key: '001', display_name: '内科' },
-          //   { key: '002', display_name: '儿科' },
-          //   { key: '003', display_name: '骨科' },
-          //   { key: '004', display_name: '产科' }
-          // ],
           tableData: [{
             num: '0',
             field1: '呼吸内科'
  
-            }, 
-            {
-              num: '1',
+            }, {
+               num: '1',
               field1: '消化内科'
            
             }, {
@@ -120,8 +107,7 @@
             
             }, {
               num: '3',
-              field1: '神经内科'
-             
+              field1: '神经内科'  
             }, {
                num: '4',
               field1: '肿瘤科'
@@ -132,23 +118,19 @@
               
             }, {
               num: '6',
-              field1: '血液内科'
-              
+              field1: '血液内科'  
             },
             {
               num: '7',
-              field1: '儿科'
-              
+              field1: '儿科' 
             },
             {
               num: '8',
-              field1: '小儿科'
-              
+              field1: '小儿科'       
             },
             {
               num: '9',
-              field1: '小儿麻痹科'
-              
+              field1: '小儿麻痹科'   
             },
             {
               num: '10',
@@ -165,11 +147,9 @@
               field1: ''
           },
           dialogUpdateVisible: false, //编辑对话框的显示状态
-          multipleSelection: [],
           ruleForm: {
                     name: ''
           },
-          rule:'',
           rules: {
             name: [
               { required: true, message: '请输入类型名称', trigger: 'blur' },
@@ -184,17 +164,17 @@
           rows.splice(index, 1)
         },
         handleClose(done) {
-	        this.$confirm('确认关闭？').then(_ => {
-	            done();
-	        }).catch(_ => {});
-	      },
+          this.$confirm('确认关闭？').then(_ => {
+              done();
+          }).catch(_ => {});
+        },
         // 添加
-	      submitForm(formName) {
+        submitForm(formName) {
           this.$refs[formName].validate((valid) => {
              if (valid) {
-             	this.tableData.field1=this.ruleForm.name;
-             	// 把数据添加进去表格
-             	this.tableData.unshift({field1:this.tableData.field1});
+              this.tableData.field1=this.ruleForm.name;
+              // 把数据添加进去表格
+              this.tableData.unshift({field1:this.tableData.field1});
                alert('submit!');
              } else {
                console.log('error submit!!');
@@ -202,35 +182,32 @@
              }
           });
         },
-	      resetForm(formName) {
-	        this.$refs[formName].resetFields();
-	      },
+        resetForm(formName) {
+          this.$refs[formName].resetFields();
+        },
         // 导出
         export2Excel() {
           alert(2);
           var vm = this;
-        //   require.ensure([], () => {
-        //     alert(1);
-        //     const { export_json_to_excel } = require('@/vendor/Export2Excel');
-        //     const tHeader = [ '序号', '类别'];
-        //     const filterVal = ['num', 'field1'];
-        //     const list = vm.tableData;
-        //     const data = vm.formatJson(filterVal, list);
-        //     export_json_to_excel(tHeader, data, '导出的列表excel');
-        //   })
-        // },
-        // formatJson(filterVal, jsonData) {
-        //   return jsonData.map(v => filterVal.map(j => v[j]))
         },
         // 批量删除
-        handleSelectionChange(val){
-              this.multipleSelection = val;   
+        SelectionChange(val){
+            this.multipleSelection = val;    
         },
         removeSelected(){
-          for (var i = 0; i < this.multipleSelection.length; i++) {
-            this.tableData.splice(this.multipleSelection[i],this.multipleSelection.length);
-          }    
+          var vm=this;
+          var Selection=this.tableData.length;
+          for (var i = 0; i <this.multipleSelection.length; i++){
+            if(this.tableData.length == Selection){ 
+                  this.tableData.splice(vm.multipleSelection[i].num,1);
+                }
+
+            if(this.tableData.length < Selection&&vm.multipleSelection[i].num!=vm.multipleSelection[0].num){ 
+            this.tableData.splice(vm.multipleSelection[i].num-i,1);    
+            }
+          }
         },
+      
         // 编辑
         edit(index, rows){
            this.i=index;
@@ -241,10 +218,10 @@
         sure(){       
           var vm  = this;
           vm.dialogUpdateVisible=false;
-          this.tableData[this.i].field1 = this.update.field1 ;
+          this.tableData[this.i].field1 = this.update.field1;
         }
     }
-  }
+}
 </script>
 
 <style rel="stylesheet">

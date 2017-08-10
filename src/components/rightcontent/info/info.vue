@@ -1,7 +1,7 @@
 <template>
     <div class="personalInfo">
     <el-breadcrumb separator="/">
-          <el-breadcrumb-item :to="{ path: '/homepage'}">首页
+          <el-breadcrumb-item :to="{ path: '/loginSuccess/homepage'}">首页
           </el-breadcrumb-item>
           <el-breadcrumb-item>个人信息</el-breadcrumb-item>
         </el-breadcrumb>
@@ -252,7 +252,6 @@ export default {
     methods:{
       // 获取personalInfo.json
         getData(){ 
-          alert(1)
                     this.$http.get(api.personalInfo).then(
                         function(response){
                             // alert("请求成功");
