@@ -7,14 +7,11 @@
         </el-breadcrumb>
   <!-- 左侧上传图片 -->
         <div class="left" >
-
-            <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove"> <i class="el-icon-plus"></i>
+            <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
-            <el-dialog v-model="dialogVisible" size="tiny">
-              <img width="100%" :src="dialogImageUrl" alt="">
-            </el-dialog>
             <h5><span style="margin-left:40px">医生名字</span></h5>
-
         </div>
         
         <div class="right">
@@ -204,7 +201,7 @@ import {api} from '../../../global/api.js'
 export default {  
  data() {
       return {
-            dialogImageUrl: '', //图片路径
+            imageUrl:'', //图片路径
             dialogVisible: false,
             editableRight1:false,
             editableRight2:false,
@@ -321,13 +318,22 @@ export default {
             vm.editableRight3 = false;
             // vm.personalInfo = JSON.parse( JSON.stringify(vm.personalInfo_init) ) ;
         },
-        handleRemove(file, fileList) {
-        console.log(file, fileList);
+        // 头像
+        handleAvatarSuccess(res, file) {
+        this.imageUrl = URL.createObjectURL(file.raw);
         },
-        handlePictureCardPreview(file) {
-          this.dialogImageUrl = file.url;
-          this.dialogVisible = true;
-      }
+        beforeAvatarUpload(file) {
+          const isJPG = file.type === 'image/jpeg';
+          const isLt2M = file.size / 1024 / 1024 < 2;
+
+          if (!isJPG) {
+            this.$message.error('上传头像图片只能是 JPG 格式!');
+          }
+          if (!isLt2M) {
+            this.$message.error('上传头像图片大小不能超过 2MB!');
+          }
+          return isJPG && isLt2M;
+        }
    }  
 }
 
@@ -357,7 +363,6 @@ export default {
     float: left;
 
 }
-
 .personalInfo .right2{
     box-shadow: 4px 4px 2px #E7E7E7;
     padding-top: 10px;
@@ -366,7 +371,29 @@ export default {
     box-shadow: 4px 4px 2px #E7E7E7;
     padding-top: 10px;
 }
-
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+    border-color: #20a0ff;
+}
+.avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+}
+.avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+}
 
 
 </style>
