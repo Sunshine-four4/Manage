@@ -224,6 +224,8 @@
           var vm = this;
           vm.dialogUpdateVisible=false;
           this.tableData[this.i].date=this.update.date;
+          this.tableData[this.i].name=this.update.name;
+          this.tableData[this.i].appointment=this.update.appointment;
           },
 
           //添加
